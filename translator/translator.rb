@@ -15,6 +15,6 @@ end.", Grammar.terminals)
 puts lexer.parse
 =end
 
-Grammar.grammar.each{|rule|
+MILAN_Grammar.grammar.each{|rule|
 	puts "#{rule}"
 }

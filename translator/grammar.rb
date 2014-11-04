@@ -6,56 +6,81 @@
 
 
 #----------------------------------------------------
-# Класс Grammar хранит грамматику языка Милан       |
-#                                                   |
-# Список терминалов, нетерминалов, правила вывода   |
+# Класс Grammar хранит грамматику языка - список 
+# терминалов, нетерминалов и правил вывода
+# Предоставляет доступ к ним
+# Являеется базовым для классов других грамматик
 #----------------------------------------------------
 class Grammar
+
+#Без этого не хочет работать
+@@terminals={"NULL"=>[0,0]}
+@@nonterminals=[0]
+@@grammar=[0]
+
+  #Возвращеет список терминалов
+  def self.terminals
+      return @@terminals
+  end
+
+  #Возвращает список нетерминалов
+  def self.nonterminals
+    return @@nonterminals
+  end
+
+  #Возвращает грамматику
+  def self.grammar
+    return @@grammar
+  end
+end
+
+#Класс грамматики Милана
+class MILAN_Grammar < Grammar
 
     #Список  терминалов (лексем)
     @@terminals=
     {
-      "begin"   		  => [1,0],
-      "end"     		  => [2,0],
-      "if"      		  => [3,0],
-      "then"    		  => [4,0],
-      "else"    		  => [5,0],
-      "while"   		  => [6,0],
-      "do"      		  => [7,0],
-      "for"     		  => [8,0],
-      "to"      		  => [9, 0],
-      "read"    		  => [10,0],
-      "write"   		  => [11,0],
-      "var"     		  => [12,0],
-      "and"     		  => [13,0],
-      "or"      		  => [14,0],
-      "integer" 		  => [15,0],
-      "string"  		  => [16,0],
-      ";"       		  => [20,0],
-      "="       		  => [21,0],
-      "<>"      		  => [21,1],
-      "<"       		  => [21,2],
-      ">"       		  => [21,3],
-      "<="      		  => [21,4],
-      ">="      		  => [21,5],
-      "+"       		  => [22,0],
-      "-"       		  => [22,1],
-      "*"       		  => [23,0],
-      "/"       		  => [23,1],
-      ":="      		  => [24,0],
-      "("       		  => [25,0],
-      ")"       		  => [26,0],
-      ":"       		  => [27,0],
-      "."       		  => [28,0],
-      ","       		  => [29,0],
+      "begin"         => [1,0],
+      "end"           => [2,0],
+      "if"            => [3,0],
+      "then"          => [4,0],
+      "else"          => [5,0],
+      "while"         => [6,0],
+      "do"            => [7,0],
+      "for"           => [8,0],
+      "to"            => [9, 0],
+      "read"          => [10,0],
+      "write"         => [11,0],
+      "var"           => [12,0],
+      "and"           => [13,0],
+      "or"            => [14,0],
+      "integer"       => [15,0],
+      "string"        => [16,0],
+      ";"             => [20,0],
+      "="             => [21,0],
+      "<>"            => [21,1],
+      "<"             => [21,2],
+      ">"             => [21,3],
+      "<="            => [21,4],
+      ">="            => [21,5],
+      "+"             => [22,0],
+      "-"             => [22,1],
+      "*"             => [23,0],
+      "/"             => [23,1],
+      ":="            => [24,0],
+      "("             => [25,0],
+      ")"             => [26,0],
+      ":"             => [27,0],
+      "."             => [28,0],
+      ","             => [29,0],
       #графоуни
       "getcolorrgb"   => [42,0],
-      "drawpoint"	    => [43,0],
+      "drawpoint"     => [43,0],
       "drawline"      => [44,0],
       "drawcircle"    => [45,0],
-      "getpixelcolor"	=> [46,0],
-      "clrscr"			  => [47,0],
-      "color"			    => [48,0],
+      "getpixelcolor" => [46,0],
+      "clrscr"        => [47,0],
+      "color"         => [48,0],
       #Это терминалы констант и идентификаторов
       #В явном виде не встречаются в программе
       #Индекс заменяется  индексом соотв. константы\идентификатора в таблицах
@@ -101,9 +126,9 @@ class Grammar
         [@@nonterminals["var_block"],       [@@nonterminals["names_list"], @@terminals[":"], @@nonterminals["type"]]],
         [@@nonterminals["names_list"],      [@@terminals["@id"]]],
         [@@nonterminals["names_list"],      [@@terminals["@id"],@@terminals[","],@@nonterminals["names_list"]]],
-        [@@nonterminals["type"], 			      [@@terminals["integer"]]],
-        [@@nonterminals["type"], 			      [@@terminals["string"]]],
-        [@@nonterminals["type"], 			      [@@terminals["color"]]],
+        [@@nonterminals["type"],            [@@terminals["integer"]]],
+        [@@nonterminals["type"],            [@@terminals["string"]]],
+        [@@nonterminals["type"],            [@@terminals["color"]]],
         #Тело программы
         [@@nonterminals["program_body"],    [@@terminals["begin"], @@nonterminals["operators_list"], @@terminals["end"]]],
         [@@nonterminals["operators_list"],  [@@nonterminals["operator"]]],
@@ -146,20 +171,37 @@ class Grammar
         [@@nonterminals["color_expression"],[@@terminals["getcolorrgb"], @@terminals["("], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[")"]]]
     ]
 
-    #Возвращеет список терминалов
-    def self.terminals
-        return @@terminals
-    end
+end
 
-    #Возвращает список нетерминалов
-    def self.nonterminals
-        return @@nonterminals
-    end
 
-    #Возвращает грамматику
-    def self.grammar
-      return @@grammar
-    end
+#Простая грамматика для примера
+#Арифметические выражения
+class Simple_Grammar < Grammar
 
+  @@terminals=
+  {
+    "@id" => [0,0],
+    "+"   => [1,0],
+    "*"   => [2,0],
+    "("   => [3,0],
+    ")"   => [4,0]
+  }
+
+  @@nonterminals=
+  {
+    "Expr"    => [100,0],
+    "Term"    => [101,0],
+    "Mult"    => [102,0],
+  }
+
+  @@grammar=
+  [
+    [@@nonterminals["Expr"],    [@@nonterminals["Term"]]],
+    [@@nonterminals["Expr"],    [@@nonterminals["Term"], @@terminals["+"], @@nonterminals["Expr"]]],
+    [@@nonterminals["Term"],    [@@nonterminals["Mult"]]],
+    [@@nonterminals["Term"],    [@@nonterminals["Mult"], @@terminals["*"], @@nonterminals["Term"]]],
+    [@@nonterminals["Mult"],    [@@terminals["@id"]]],
+    [@@nonterminals["Mult"],    [@@terminals["("], @@nonterminals["Expr"], @@terminals[")"]]]
+  ]
 
 end
