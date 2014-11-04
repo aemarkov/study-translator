@@ -3,6 +3,7 @@ require_relative 'grammar'
 require_relative 'lexer'
 require_relative 'parser'
 
+=begin
 lexer=Lexer.new("
 var a, b : integer
 begin
@@ -12,3 +13,8 @@ begin
   write(a+b);
 end.", Grammar.terminals)
 puts lexer.parse
+=end
+
+Grammar.grammar.each{|rule|
+	puts "#{rule}"
+}

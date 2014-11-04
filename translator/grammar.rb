@@ -156,5 +156,10 @@ class Grammar
         return @@nonterminals
     end
 
+    #Возвращает грамматику
+    def self.grammar
+      return @@grammar
+    end
+
 
 end
