@@ -12,3 +12,5 @@ begin
   write(a+b);
 end.", Grammar.terminals)
 puts lexer.parse
+
+puts Grammar.grammar

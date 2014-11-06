@@ -4,6 +4,35 @@
 #Поэтому сравнение на основе КЛАССА, а при использовании учитывается ИНДЕКС!
 #==============================================================================
 
+#----------------------------------------------------
+# Класс Rule хранит правило вывода грамматики
+# Лексему левой части и массив лексем левой части
+# ---------------------------------------------------
+class Rule
+
+  #Конструктор
+  def initialize (right, left) 
+    @right=right
+    @left=left
+  end
+
+  #Геттеры
+  def right
+    return @right
+  end
+
+  def left
+    return @left
+  end
+
+  #Преобразование к строке
+  def to_s
+    str="#{@right} ::= "
+    @left.each{|lexem| str+="#{lexem} "}
+    return str
+  end
+
+end
 
 #----------------------------------------------------
 # Класс Grammar хранит грамматику языка - список 
@@ -118,57 +147,56 @@ class MILAN_Grammar < Grammar
     @@grammar=
     [
         #Программа целиком
-        [@@nonterminals["program"],         [@@nonterminals["var_define"], @@nonterminals["program_body"]]],
+        Rule.new(@@nonterminals["program"],         [@@nonterminals["var_define"], @@nonterminals["program_body"]]),
         #Объявление переменных
-        [@@nonterminals["var_define"],      [@@terminals["var"], @@nonterminals["var_list"]]],
-        [@@nonterminals["var_list"],        [@@nonterminals["var_block"], @@terminals[";"], @@nonterminals["var_list"]]],
-        [@@nonterminals["var_list"],        [@@nonterminals["var_block"]]],
-        [@@nonterminals["var_block"],       [@@nonterminals["names_list"], @@terminals[":"], @@nonterminals["type"]]],
-        [@@nonterminals["names_list"],      [@@terminals["@id"]]],
-        [@@nonterminals["names_list"],      [@@terminals["@id"],@@terminals[","],@@nonterminals["names_list"]]],
-        [@@nonterminals["type"],            [@@terminals["integer"]]],
-        [@@nonterminals["type"],            [@@terminals["string"]]],
-        [@@nonterminals["type"],            [@@terminals["color"]]],
+        Rule.new(@@nonterminals["var_define"],      [@@terminals["var"], @@nonterminals["var_list"]]),
+        Rule.new(@@nonterminals["var_list"],        [@@nonterminals["var_block"], @@terminals[";"], @@nonterminals["var_list"]]),
+        Rule.new(@@nonterminals["var_list"],        [@@nonterminals["var_block"]]),
+        Rule.new(@@nonterminals["var_block"],       [@@nonterminals["names_list"], @@terminals[":"], @@nonterminals["type"]]),
+        Rule.new(@@nonterminals["names_list"],      [@@terminals["@id"]]),
+        Rule.new(@@nonterminals["names_list"],      [@@terminals["@id"],@@terminals[","],@@nonterminals["names_list"]]),
+        Rule.new(@@nonterminals["type"],            [@@terminals["integer"]]),
+        Rule.new(@@nonterminals["type"],            [@@terminals["string"]]),
+        Rule.new(@@nonterminals["type"],            [@@terminals["color"]]),
         #Тело программы
-        [@@nonterminals["program_body"],    [@@terminals["begin"], @@nonterminals["operators_list"], @@terminals["end"]]],
-        [@@nonterminals["operators_list"],  [@@nonterminals["operator"]]],
-        [@@nonterminals["operators_list"],  [@@nonterminals["operator"], @@terminals[";"], @@nonterminals["operators_list"]]],
-        [@@nonterminals["operator"],        [@@terminals["@id"], @@terminals[":="], @@nonterminals["expression"]]],
-        [@@nonterminals["operator"],        [@@terminals["if"], @@nonterminals["condition"], @@terminals["then"], @@nonterminals["operator"]]],
-        [@@nonterminals["operator"],        [@@terminals["if"], @@nonterminals["condition"], @@terminals["then"], @@nonterminals["operator"], @@terminals["else"], @@nonterminals["operator"]]],
-        [@@nonterminals["operator"],        [@@terminals["while"], @@nonterminals["condition"], @@terminals["do"], @@nonterminals["operator"]]],
-        [@@nonterminals["operator"],        [@@terminals["for"], @@terminals["@id"], @@terminals[":="], @@nonterminals["expression"], @@terminals["to"], @@nonterminals["expression"], @@terminals["do"], @@nonterminals["operator"]]],
-        [@@nonterminals["operator"],        [@@terminals["write"], @@terminals["("], @@nonterminals["expression"], @@terminals[")"]]],
-        [@@nonterminals["operator"],        [@@terminals["read"], @@terminals["("], @@terminals["@id"], @@terminals[")"]]],
-        [@@nonterminals["operator"],        [@@terminals["drawpoint"], @@terminals["("], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["color_expression"], @@terminals[")"]]],
-        [@@nonterminals["operator"],        [@@terminals["drawline"], @@terminals["("], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@terminals[","], @@nonterminals["num_expression"], @@nonterminals["color_expression"], @@terminals[")"]]],
-        [@@nonterminals["operator"],        [@@terminals["drawcircle"], @@terminals["("], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["color_expression"], @@terminals[")"]]],
-        [@@nonterminals["operator"],        [@@terminals["getpixelcolor"],@@terminals["("],@@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[")"]]],
-        [@@nonterminals["operator"],        [@@terminals["clrscr"], @@terminals["("], @@nonterminals["color_expression"], @@terminals[")"]]],
-        [@@nonterminals["operator"],        [@@terminals["begin"], @@nonterminals["operators_list"], @@terminals["end"]]],
+        Rule.new(@@nonterminals["program_body"],    [@@terminals["begin"], @@nonterminals["operators_list"], @@terminals["end"]]),
+        Rule.new(@@nonterminals["operators_list"],  [@@nonterminals["operator"]]),
+        Rule.new(@@nonterminals["operators_list"],  [@@nonterminals["operator"], @@terminals[";"], @@nonterminals["operators_list"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["@id"], @@terminals[":="], @@nonterminals["expression"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["if"], @@nonterminals["condition"], @@terminals["then"], @@nonterminals["operator"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["if"], @@nonterminals["condition"], @@terminals["then"], @@nonterminals["operator"], @@terminals["else"], @@nonterminals["operator"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["while"], @@nonterminals["condition"], @@terminals["do"], @@nonterminals["operator"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["for"], @@terminals["@id"], @@terminals[":="], @@nonterminals["expression"], @@terminals["to"], @@nonterminals["expression"], @@terminals["do"], @@nonterminals["operator"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["write"], @@terminals["("], @@nonterminals["expression"], @@terminals[")"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["read"], @@terminals["("], @@terminals["@id"], @@terminals[")"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["drawpoint"], @@terminals["("], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["color_expression"], @@terminals[")"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["drawline"], @@terminals["("], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@terminals[","], @@nonterminals["num_expression"], @@nonterminals["color_expression"], @@terminals[")"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["drawcircle"], @@terminals["("], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["color_expression"], @@terminals[")"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["getpixelcolor"],@@terminals["("],@@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[")"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["clrscr"], @@terminals["("], @@nonterminals["color_expression"], @@terminals[")"]]),
+        Rule.new(@@nonterminals["operator"],        [@@terminals["begin"], @@nonterminals["operators_list"], @@terminals["end"]]),
         #Логические операции, сравнения итп
-        [@@nonterminals["condition"],       [@@nonterminals["comparation"]]],
-        [@@nonterminals["condition"],       [@@nonterminals["comparation"], @@nonterminals["logic_operator"], @@nonterminals["condition"]]],
-        [@@nonterminals["comparation"],     [@@nonterminals["expression"], @@terminals["="], @@nonterminals["expression"]]],
-        [@@nonterminals["logic_operator"],  [@@terminals["and"]]],
-        [@@nonterminals["logic_operator"],  [@@terminals["or"]]],
+        Rule.new(@@nonterminals["condition"],       [@@nonterminals["comparation"]]),
+        Rule.new(@@nonterminals["condition"],       [@@nonterminals["comparation"], @@nonterminals["logic_operator"], @@nonterminals["condition"]]),
+        Rule.new(@@nonterminals["comparation"],     [@@nonterminals["expression"], @@terminals["="], @@nonterminals["expression"]]),
+        Rule.new(@@nonterminals["logic_operator"],  [@@terminals["and"]]),
+        Rule.new(@@nonterminals["logic_operator"],  [@@terminals["or"]]),
         #Выражения
-        [@@nonterminals["expression"],      [@@nonterminals["num_expression"]]],
-        [@@nonterminals["expression"],      [@@nonterminals["str_expression"]]],
-        [@@nonterminals["expression"],      [@@nonterminals["color_expression"]]],
-        [@@nonterminals["num_expression"],  [@@nonterminals["term"]]],
-        [@@nonterminals["num_expression"],  [@@nonterminals["term"], @@terminals["+"], @@nonterminals["num_expression"]]],
-        [@@nonterminals["term"],            [@@nonterminals["multiplier"]]],
-        [@@nonterminals["term"],            [@@nonterminals["multiplier"], @@terminals["*"], @@nonterminals["term"]]],
-        [@@nonterminals["multiplier"],      [@@terminals["@id"]]],
-        [@@nonterminals["multiplier"],      [@@terminals["("], @@nonterminals["num_expression"], @@terminals[")"]]],
-        [@@nonterminals["multiplier"],      [@@terminals["nconst"]]],
-        [@@nonterminals["str_expression"],  [@@nonterminals["str_term"]]],
-        [@@nonterminals["str_expression"],  [@@nonterminals["str_term"], @@terminals["+"], @@nonterminals["str_expression"]]],
-        [@@nonterminals["str_term"],        [@@terminals["@id"]]],
-        [@@nonterminals["str_term"],        [@@terminals["sconst"]]],
-        [@@nonterminals["color_expression"],[@@terminals["@id"]]],
-        [@@nonterminals["color_expression"],[@@terminals["getcolorrgb"], @@terminals["("], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[")"]]]
+        Rule.new(@@nonterminals["expression"],      [@@nonterminals["num_expression"]]),
+        Rule.new(@@nonterminals["expression"],      [@@nonterminals["str_expression"]]),
+        Rule.new(@@nonterminals["expression"],      [@@nonterminals["color_expression"]]),
+        Rule.new(@@nonterminals["num_expression"],  [@@nonterminals["term"]]),
+        Rule.new(@@nonterminals["num_expression"],  [@@nonterminals["term"], @@terminals["+"], @@nonterminals["num_expression"]]),
+        Rule.new(@@nonterminals["term"],            [@@nonterminals["multiplier"]]),
+        Rule.new(@@nonterminals["term"],            [@@nonterminals["multiplier"], @@terminals["*"], @@nonterminals["term"]]),
+        Rule.new(@@nonterminals["multiplier"],      [@@terminals["@id"]]),
+        Rule.new(@@nonterminals["multiplier"],      [@@terminals["("], @@nonterminals["num_expression"], @@terminals[")"]]),
+        Rule.new(@@nonterminals["multiplier"],      [@@terminals["nconst"]]),
+        Rule.new(@@nonterminals["str_expression"],  [@@nonterminals["str_term"]]),
+        Rule.new(@@nonterminals["str_expression"],  [@@nonterminals["str_term"], @@terminals["+"], @@nonterminals["str_expression"]]),
+        Rule.new(@@nonterminals["str_term"],        [@@terminals["@id"]]),
+        Rule.new(@@nonterminals["str_term"],        [@@terminals["sconst"]]),
+        Rule.new(@@nonterminals["color_expression"],[@@terminals["@id"]]),
+        Rule.new(@@nonterminals["color_expression"],[@@terminals["getcolorrgb"], @@terminals["("], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[","], @@nonterminals["num_expression"], @@terminals[")"]])
     ]
-
 end
