@@ -13,8 +13,13 @@ begin
   write(a+b);
 end.", Grammar.terminals)
 puts lexer.parse
+<<<<<<< HEAD
 =end
 
 MILAN_Grammar.grammar.each{|rule|
 	puts "#{rule}"
 }
+=======
+
+puts Grammar.grammar
+>>>>>>> master

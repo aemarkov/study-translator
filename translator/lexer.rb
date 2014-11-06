@@ -1,9 +1,9 @@
 
-#
+#-----------------------------------------------------------
 #Лексический анализатор
 #
 #Преобразует текст программы в последовательность лексем
-#
+#-----------------------------------------------------------
 class Lexer
 
 	#Регулярные выражения
@@ -114,7 +114,7 @@ class Lexer
 		#Является ли идиентфикатор переменной или ключевым словом
 		if lexem!=nil
 			#Ключевое слово
-			return Lexem.new(lexem[0], lexem[1], 0, string)
+			return Terminal.new(lexem.type, lexem.id, 0, string)
 		else
 			#переменная
 			return createIdLexem(string)
@@ -130,7 +130,7 @@ class Lexer
 		end
 
 		#Возвращаем лексему
-		return Lexem.new(40, @numericConsts[string],0, string)
+		return Terminal.new(@lexemsList["@nconst"].type, @numericConsts[string],0, string)
 	end
 
 	#создает лексему  строковой константы
@@ -142,7 +142,7 @@ class Lexer
 		end
 
 		#Возвращаем лексему
-		return Lexem.new(41, @stringConsts[string],0, string)
+		return Terminal.new(@lexemsList["@sconst"].type, @stringConsts[string],0, string)
 	end
 
 	#Создает лексему идентификатора
@@ -154,7 +154,7 @@ class Lexer
 		end
 
 		#Возвращаем лексему
-		return Lexem.new(30, @variables[string],0, string)
+		return Terminal.new(@lexemsList["@id"].type, @variables[string],0, string)
 	end
 
 
