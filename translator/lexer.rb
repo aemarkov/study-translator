@@ -130,7 +130,7 @@ class Lexer
 		end
 
 		#Возвращаем лексему
-		return Lexem.new(40, @numericConsts[string],0, string)
+		return Lexem.new(lexemsList["@nconst"], @numericConsts[string],0, string)
 	end
 
 	#создает лексему  строковой константы
@@ -142,7 +142,7 @@ class Lexer
 		end
 
 		#Возвращаем лексему
-		return Lexem.new(41, @stringConsts[string],0, string)
+		return Lexem.new(lexemsList["@sconst"], @stringConsts[string],0, string)
 	end
 
 	#Создает лексему идентификатора
@@ -154,7 +154,7 @@ class Lexer
 		end
 
 		#Возвращаем лексему
-		return Lexem.new(30, @variables[string],0, string)
+		return Lexem.new(lexemsList["@id"], @variables[string],0, string)
 	end
 
 
