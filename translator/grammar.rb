@@ -40,78 +40,78 @@ class MILAN_Grammar < Grammar
     #Список  терминалов (лексем)
     @@terminals=
     {
-      "begin"         => [1,0],
-      "end"           => [2,0],
-      "if"            => [3,0],
-      "then"          => [4,0],
-      "else"          => [5,0],
-      "while"         => [6,0],
-      "do"            => [7,0],
-      "for"           => [8,0],
-      "to"            => [9, 0],
-      "read"          => [10,0],
-      "write"         => [11,0],
-      "var"           => [12,0],
-      "and"           => [13,0],
-      "or"            => [14,0],
-      "integer"       => [15,0],
-      "string"        => [16,0],
-      ";"             => [20,0],
-      "="             => [21,0],
-      "<>"            => [21,1],
-      "<"             => [21,2],
-      ">"             => [21,3],
-      "<="            => [21,4],
-      ">="            => [21,5],
-      "+"             => [22,0],
-      "-"             => [22,1],
-      "*"             => [23,0],
-      "/"             => [23,1],
-      ":="            => [24,0],
-      "("             => [25,0],
-      ")"             => [26,0],
-      ":"             => [27,0],
-      "."             => [28,0],
-      ","             => [29,0],
+      "begin"         => Lexem.new(1,0),
+      "end"           => Lexem.new(2,0),
+      "if"            => Lexem.new(3,0),
+      "then"          => Lexem.new(4,0),
+      "else"          => Lexem.new(5,0),
+      "while"         => Lexem.new(6,0),
+      "do"            => Lexem.new(7,0),
+      "for"           => Lexem.new(8,0),
+      "to"            => Lexem.new(9, 0),
+      "read"          => Lexem.new(10,0),
+      "write"         => Lexem.new(11,0),
+      "var"           => Lexem.new(12,0),
+      "and"           => Lexem.new(13,0),
+      "or"            => Lexem.new(14,0),
+      "integer"       => Lexem.new(15,0),
+      "string"        => Lexem.new(16,0),
+      ";"             => Lexem.new(20,0),
+      "="             => Lexem.new(21,0),
+      "<>"            => Lexem.new(21,1),
+      "<"             => Lexem.new(21,2),
+      ">"             => Lexem.new(21,3),
+      "<="            => Lexem.new(21,4),
+      ">="            => Lexem.new(21,5),
+      "+"             => Lexem.new(22,0),
+      "-"             => Lexem.new(22,1),
+      "*"             => Lexem.new(23,0),
+      "/"             => Lexem.new(23,1),
+      ":="            => Lexem.new(24,0),
+      ".new("         => Lexem.new(25,0),
+      ")"             => Lexem.new(26,0),
+      ":"             => Lexem.new(27,0),
+      "."             => Lexem.new(28,0),
+      ","             => Lexem.new(29,0),
       #графоуни
-      "getcolorrgb"   => [42,0],
-      "drawpoint"     => [43,0],
-      "drawline"      => [44,0],
-      "drawcircle"    => [45,0],
-      "getpixelcolor" => [46,0],
-      "clrscr"        => [47,0],
-      "color"         => [48,0],
+      "getcolorrgb"   => Lexem.new(42,0),
+      "drawpoint"     => Lexem.new(43,0),
+      "drawline"      => Lexem.new(44,0),
+      "drawcircle"    => Lexem.new(45,0),
+      "getpixelcolor" => Lexem.new(46,0),
+      "clrscr"        => Lexem.new(47,0),
+      "color"         => Lexem.new(48,0),
       #Это терминалы констант и идентификаторов
       #В явном виде не встречаются в программе
       #Индекс заменяется  индексом соотв. константы\идентификатора в таблицах
-      "@id"           => [30,0],
-      "@nconst"       => [40,0],
-      "@sconst"       => [41,0]
+      "@id"           => Lexem.new(30,0),
+      "@nconst"       => Lexem.new(40,0),
+      "@sconst"       => Lexem.new(41,0)
     }
 
     #Список нетерминалов
     @@nonterminals=
     {
-        "program"           => [100,0],     # Стартовый нетерминал
-        "var_define"        => [101,0],     # Объявление переменных
-        "var_list"          => [102,0],     # Список переменных
-        "var_block"         => [103,0],     # Блок переменных
-        "names_list"        => [104,0],     # Список имен
-        "type"              => [105,0],     # Тип
-        "program_body"      => [106,0],     # Тело программы
-        "operators_list"    => [107,0],     # Последовательность операвторов
-        "operator"          => [108,0],     # Оператор
-        "condition"         => [109,0],     # Условие
-        "comparation"       => [110,0],     # Сравнение
-        "logic_operator"    => [111,0],     # Логический оператор
-        "expression"        => [112,0],     # Выражение
-        "num_expression"    => [113,0],     # Числовое выражение
-        "str_expression"    => [114,0],     # Строковое выражение
-        "term"              => [115,0],     # Часть численного выражения
-        "multiplier"        => [116,0],     # Множитель
-        "str_term"          => [117,0],     # Часть строкового выражения
-        "color_expression"  => [118,0],     # Цветовое выражение
-        "ending"            => [119,0]      # Конечный нетерминал
+        "program"           => Lexem.new(100,0),     # Стартовый нетерминал
+        "var_define"        => Lexem.new(101,0),     # Объявление переменных
+        "var_list"          => Lexem.new(102,0),     # Список переменных
+        "var_block"         => Lexem.new(103,0),     # Блок переменных
+        "names_list"        => Lexem.new(104,0),     # Список имен
+        "type"              => Lexem.new(105,0),     # Тип
+        "program_body"      => Lexem.new(106,0),     # Тело программы
+        "operators_list"    => Lexem.new(107,0),     # Последовательность операвторов
+        "operator"          => Lexem.new(108,0),     # Оператор
+        "condition"         => Lexem.new(109,0),     # Условие
+        "comparation"       => Lexem.new(110,0),     # Сравнение
+        "logic_operator"    => Lexem.new(111,0),     # Логический оператор
+        "expression"        => Lexem.new(112,0),     # Выражение
+        "num_expression"    => Lexem.new(113,0),     # Числовое выражение
+        "str_expression"    => Lexem.new(114,0),     # Строковое выражение
+        "term"              => Lexem.new(115,0),     # Часть численного выражения
+        "multiplier"        => Lexem.new(116,0),     # Множитель
+        "str_term"          => Lexem.new(117,0),     # Часть строкового выражения
+        "color_expression"  => Lexem.new(118,0),     # Цветовое выражение
+        "ending"            => Lexem.new(119,0)      # Конечный нетерминал
     }
 
     #Грамматика
