@@ -24,6 +24,11 @@ class Lexem
     return @id
   end
 
+  #Терминал или нетерминал
+  def wtfIsIt
+    return 0
+  end
+
   #Сравнение по содержимому
   def compare(other)
     return (other.type==@type) && (other.id==@id)
@@ -67,6 +72,11 @@ class Terminal < Lexem
     @pos=pos
   end
 
+  #Терминал или нетерминал
+  def wtfIsIt
+    return 1
+  end
+
   #сравнение позиции
   def <=>(right)
     return @pos<=>right.pos
@@ -74,6 +84,6 @@ class Terminal < Lexem
 
   #to string
   def to_s
-    return "(#{@str} #{@type}, #{@id})"
+    return "('#{@str}', #{@type}, #{@id})"
   end
 end

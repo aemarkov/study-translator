@@ -4,13 +4,16 @@ require_relative 'lexer'
 require_relative 'parser'
 
 lexer=Lexer.new("
-var a, b : integer
+var
+	a, b, c, i: integer;
 begin
-  a:=1;
-  b:=2;
-  write('Lol');
-  write(a+b);
+	read(a);
+	read(b);
+	c:=1;
+	for i:=1 to a do c:=c*b;
+	write('a^b='');
+	write(c);
 end.", Grammar.terminals)
 puts lexer.parse
 
-puts Grammar.grammar
+#puts Grammar.grammar

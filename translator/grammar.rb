@@ -35,6 +35,31 @@ class Rule
 end
 
 #----------------------------------------------------
+# Класс Item хранит пункт грамматики
+# Пункт состоит из правила и позиции в этом правиле
+class Item
+
+  #Конструктор
+  def initialize (rule, position)
+    @rule=rule
+    @position=position
+  end
+
+  #Геттеры
+  def rule
+    return @rule
+  end
+
+  def position
+    return @position
+  end
+
+  #Сеттер позиции
+  def position=(position)
+    @position=position
+  end
+end
+#----------------------------------------------------
 # Класс Grammar хранит грамматику языка - список 
 # терминалов, нетерминалов и правил вывода
 # Предоставляет доступ к ним
@@ -60,6 +85,33 @@ class Grammar
   #Возвращает грамматику
   def self.grammar
     return @@grammar
+  end
+
+  #Замыкание
+  def closure(items)
+    items.each{|item|
+
+      #Если точка не стоит после последнего элемента
+      if item.position < item.rule.right.length
+
+        #Элемент правила после точки:
+        b=item.rule.left[item.position]
+
+        #Если этот элемент нетерминал
+        if b.wtfIsIt==0
+
+          #Все правила, в левой части которых b
+          @@grammar.each{|rule|
+
+            #Если очередное правило имеет в правой части b
+            if rule.left.compare(b)
+              #Нам тут нужен FIRST
+
+            end
+          }
+        end
+      end
+    }
   end
 end
 
@@ -97,7 +149,7 @@ class MILAN_Grammar < Grammar
       "*"             => Lexem.new(23,0),
       "/"             => Lexem.new(23,1),
       ":="            => Lexem.new(24,0),
-      ".new("         => Lexem.new(25,0),
+      "("             => Lexem.new(25,0),
       ")"             => Lexem.new(26,0),
       ":"             => Lexem.new(27,0),
       "."             => Lexem.new(28,0),
