@@ -40,8 +40,7 @@ class Lexer
 	def parse
 
 		#Пробегаем по строке всем регулярками
-		@@regExpes.each do
-			|regExp|
+		@@regExpes.each do |regExp|
 
 			#Находим все подстроки, соответствуюшие очредной регулярке
 			@text, substr, index = getSubstring(@text, regExp)
@@ -68,6 +67,7 @@ class Lexer
 		return @lexems
 	end
 
+	#---------------------------- PRIVATE ---------------------------------------------------
 	private
 
 

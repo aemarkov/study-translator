@@ -14,15 +14,7 @@ class Lexem
     @id = id
   end
 
-   #получить тип лексемы
-  def type
-    return @type
-  end
-
-  #получить индекс лексемы
-  def id
-    return @id
-  end
+  attr_reader :type, :id
 
   #Терминал или нетерминал
   def wtfIsIt
@@ -62,15 +54,7 @@ class Terminal < Lexem
     @str=string
   end
 
-  #получить позицию лексемы в тексте
-  def pos
-    return @pos
-  end
-
-  #задать позицию лексемы в тексте
-  def pos=(pos)
-    @pos=pos
-  end
+  attr_accessor :pos
 
   #Терминал или нетерминал
   def wtfIsIt

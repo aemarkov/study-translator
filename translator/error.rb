@@ -11,14 +11,7 @@ class Error
 		@errorDescription=errorDescription
 	end
 
-	#Геттеры
-	def errorCode
-		return @errorCode
-	end
-
-	def errorDescription
-		return @errorDescription
-	end
+	attr_reader :errorCode, :errorDescription
 
 	#Приведение к строке
 	def to_s
