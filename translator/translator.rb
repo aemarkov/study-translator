@@ -19,4 +19,4 @@ end.", grammar.terminals)
 
 
 grammar = Grammar.new('milan_grammar.rb')
-puts grammar.rules
+puts grammar.terminals

@@ -1,153 +1,260 @@
-@import "bootstrap";
+//=========== GENERAL PARAMETRS ====================
 
-//<%= stylesheet_link_tag "custom.css" %>
+$color_schema:  2;
 
-//========== FLAT UI COLORS SETTINGS ===============
-$turquoise:     #1abc9c;
-$green-sea:     #16a085;
-
-$emerald:       #2ecc71;
-$nephrites:     #27ae60;
-
-$peterriver:    #3498db;
-$belize-hole:   #2980b9;
-
-$wet-apshalt:   #34495e;
-$midnight-blue: #2c3e50;
-
-$clouds:        #ecf0f1;
-$silver:        #bdc3c7;
-
-$concrete:      #95a5a6;
-$asbestos:      #7f8c8d;
+//Material design blue
+/*$main:        #03A9F4;
+$main-light:  #3498db;
+$main-dark:   #0277BD;
+$main-darker: #1A5A80;
+$accent:      #FFC107;
+$accent-dark: #FF6F00;
+$grey:        #DCDCDC;*
 
 
-//Div border for debugging
-div
+//flat ui green
+$main:        #1abc9c;
+$main-light:  #80CBC4;
+$main-dark:   #16a085;
+$main-darker: #00695C;
+$accent:      #e67e22;
+$accent-dark: #d35400;
+$grey:        #DCDCDC;*/
+
+
+//materialdesign green (teal)
+$main:        #009688;
+$main-light:  #80CBC4;
+$main-dark:   #00695C;
+$main-darker: #004D40;
+$accent:      #e67e22;
+$accent-dark: #e67e22;
+$grey:        #DCDCDC;
+
+$menu-height: 50px;
+//=====================  GENERAL ===================
+//Roboto font
+@font-face
 {
-  //border: 1px solid #000000;
+  font-family: Roboto;
+  src: url(Roboto-Regular.ttf);
+
+  font-weight: 400;
+  font-style: normal;
 }
 
-//===============================================
-//            NAVIGATION PANEL
-//==============================================
-//Menu
-.nav-panel
+@font-face
 {
-  position: fixed; 
+  font-family: Roboto;
+  src: url(Roboto-Light.ttf);
+
+  font-weight: 300;
+  font-style: normal;
+}
+
+//General settings
+html, body
+{
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: Roboto;
+  font-weight: 300;
+  background-color: $grey;
+
+
+}
+
+//================== MENU ==========================
+//Menu bar
+.menu
+{
+  position: fixed;
+
   width: 100%;
-  height: 50px;
-  z-index: 20;
-  line-height: 50px;
-  background-color: $wet-apshalt;
+  height: $menu-height;
+
+  padding-left: 10px;
+  padding-right: 10px;
+
+  background-color: $main-dark;
+
+  color: #FFFFFF;
   font-size: larger;
-  
-  //menu items list
-  ul
-  {
-     list-style-type: none;  
-  }
-  
-  li
+
+  transition: box-shadow 0.2s linear;
+
+  //Menu button
+  .menu-item
   {
     display: inline-block;
-    padding: 0px 10px;
-    border-left: 1px solid $gray;
-    color: $concrete;
-    transition: background-color 80ms ease-in-out;
-    
-    //mouse hover on menu item
+
+    width: 150px;
+    height: 40px;
+
+    text-decoration: none;
+
+    padding-top: 10px;
+    text-align: center;
+
+    transition: 0.2s linear;
+
     &:hover
     {
-      background-color: $clouds;
-      color: $midnight-blue;
+      //box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+      background-color: $main-darker;
+    }
+
+    &:visited
+    {
+      color: #FFFFFF;
     }
   }
-  
-  //Current page is highlighted
-  .nav-current
-   {
-      background-color: $midnight-blue;
-      color: $clouds;
-   }
-  
-  //last element needs border at right
-  //last-child not worked, wtf
-  .last-element
-  {
-    border-right: 1px solid $gray;
-  }
-  
-  //menu item floating to right side
-  //using for log-in button
-  .right-item
-  {
-    border-right: 1px solid $gray;
-    float: right;
-  }
- 
+
 }
 
-//===============================================================
-//                        BUTTONS
-//=============================================================== 
-
-
-//Button
-.btn-flat
+//Desctop menu style
+#nav_pc
 {
-  background-color: $emerald;
-  border-radius: 0;
-  color: $clouds;
-  font-size: 1em;
-  
-  transition: background-color 80ms linear;
-  
-  box-shadow: 0px 2px 0 0 $midnight-blue;
-  
+  display: none;
+}
+
+//Mobile menu style
+#nav_mobile
+{
+  display: inline-block;
+}
+
+//Menu openning button
+.menu-button
+{
+  width: 48px;
+  height: 48px;
+
+  transition:  0.2s linear;
+  background-position: 50% 50%;
+  background-image: image-url("icon_menu.png");
+
   &:hover
   {
-    background-color: $nephrites;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    background-color: $accent;
+    box-shadow: 0 0 15px rgba(0,0,0, 0.7);
   }
   
-  &:active
+}
+
+//Mobile side menu
+#nav_mobile_menu
+{
+  position: fixed;
+  left:-300px;
+
+  width: 300px;
+  height: 100%;
+
+  background-color: #FFFFFF; //$grey;
+  box-shadow: 0 0 10px rgba(0,0,0, 0.7);
+  z-index: 20;
+
+  transition: 0.3s linear;
+}
+
+//dark field
+#nav_mobile_dark
+{
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0, 0.4);
+  z-index: 18;
+}
+
+//===================== CARDS ======================
+//Container for all cards
+.content
+{
+  margin-top: -50px;
+}
+
+//card
+.card
+{
+  max-width: 1300px;
+  width: 95%;
+
+  min-height: 150px;
+
+  margin: 10px auto;
+
+  border-radius: 2px;
+
+  background-color: #FFFFFF;
+  box-shadow: 0 0 5px rgba(0,0,0, 0.7);
+
+  font-weight: 400;
+
+  //Card tittle
+  .card-tittle
   {
-    box-shadow: 0px 1px 0 0 $midnight-blue;
+    display: inline-block;
+    width: 100%;
+    height: 39px;
+
+    border-bottom: solid 1px #999999;
+
+    color: $accent-dark;
+    font-size: larger;
+
+    //Tittle in tittle. This is it, becouse padding do some bugs
+    span
+    {
+      display: inline-block;
+      margin: 7px 5px 5px 5px;
+    }
+  }
+
+  .card-content
+  {
+    display: inline-block;
+    padding: 7px;
   }
 }
 
 
-//real wtf
-.btn-center
+//=================== FOOTER =======================
+.page
 {
-  font-size: 2em;
-  width: 189px;
-  margin: 0 auto;
+  min-height: 100%;
 }
 
-//==================================================================
-//                  FOOTER
-//==================================================================
-#footer
+.wrapper
 {
-  height: 40px;
-  line-height: 40px;
-  
-  background-color: $midnight-blue;
-  color: wet-asphalt;
+  height: 50px;;
 }
 
-//=================================================================
-//                CONTAINER STYLING
-//=================================================================
-//margin for container
-.container-padding
+footer
 {
-  padding: 50px;
+  width: 100%;
+  height: 50px;
+
+  margin-top: -50px;
+
+  background-color: $main-dark;
+  color: #FFFFFF;
 }
 
-//colored container
-.container-clouds
+.footer-align
 {
-  background-color: $clouds;
-} 
+  display: table-cell;
+  height: 30px;
+
+  padding: 10px;
+
+  vertical-align: middle;
+}

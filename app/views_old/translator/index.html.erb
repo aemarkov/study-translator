@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<%= stylesheet_link_tag "custom.css" %>
+		<%= stylesheet_link_tag "translator.css" %>
+		<%= javascript_include_tag "scripts" %>
+		<title>Транслятор</title>
+	</head>
+	<body>
+		<nav class="nav-panel">
+			<ul>
+				<a href="../../"><li>Главная</li></a><!--
+				--><a href=""><li  class="nav-current">Транслятор</li></a><!--
+				--><a href=""><li class="last-element">Мой код</li></a>
+				<a href="../../login/index"><li class="right-item">Вход</li></a>
+			</ul>
+		</nav>
+		<div style="height:50px;">
+		</div>
+		
+		<header>
+			
+		</header>
+		
+		<div class="container-fluid">
+			Транслятор
+			<div class="row">
+				<div class="col-sm-6">
+					<textarea id="textSurce" class="source-field"></textarea>
+				</div>
+				<div class="col-sm-6">
+					<textarea id="textDestination" class="source-field"></textarea>
+				</div>
+			</div>
+			<input type="button" class="btn btn-flat" id="btnSend" value="Транслировать"/>
+		</div>
+		
+		<a href="translate">dddd</a>
+		
+		<%= form_tag("translate", method: "get") do %>
+		  <%= label_tag(:q, "Search for:") %>
+		  <%= text_field_tag(:q) %>
+		  <%= submit_tag("Search") %>
+		<% end %>
+			
+		
+		<div id="footer" class="navbar-fixed-bottom ">
+      		<div class="container-fluid">
+        		<p class="text-muted">Запилил Dark Coder</p>
+      		</div>
+    	</div>
+    	
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	    <script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
+
+

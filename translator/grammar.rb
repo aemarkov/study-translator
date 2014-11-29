@@ -70,7 +70,7 @@ class Grammar
     lines=IO.readlines(filename)
 
     i=0
-    
+
     #Терминалы
     while (i<lines.length) && (lines[i].length!=1)
       
@@ -205,6 +205,9 @@ class Grammar
       end
     end
   end
+
+  #------------ PRIVATE -----------------------------
+  private
 
 
 end
