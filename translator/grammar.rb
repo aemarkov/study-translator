@@ -11,46 +11,22 @@
 class Rule
 
   #Конструктор
-  def initialize (right, left) 
+  def initialize (left, right) 
     @right=right
     @left=left
   end
 
   attr_reader :right, :left
 
-  # #Геттеры
-  # def right
-  #   return @right
-  # end
-
-  # def left
-  #   return @left
-  # end
-
   #Преобразование к строке
   def to_s
-    str="#{@right} ::= "
-    @left.each{|lexem| str+="#{lexem} "}
+    str="#{@left} ::= "
+    @right.each{|lexem| str+="#{lexem} "}
     return str
   end
 
 end
 
-#----------------------------------------------------
-# Класс Item хранит пункт грамматики
-# Пункт состоит из правила и позиции в этом правиле
-class Item
-
-  #Конструктор
-  def initialize (rule, position)
-    @rule=rule
-    @position=position
-  end
-
-  attr_reader :rule
-  attr_accessor :position
-
-end
 #----------------------------------------------------
 # Класс Grammar хранит грамматику языка - список 
 # терминалов, нетерминалов и правил вывода
@@ -122,10 +98,14 @@ class Grammar
 
       #Создаем массив правой части
       right=Array.new(0)
+
+      #print "#{left}/#{@nonterminals[left]} ::= "
       
       while line[/<.+?>|".+?"/]!=nil
         #Терминал или нетерминал
         word = line[/<.+?>|".+?"/]
+
+        
 
         #он же, но без <> или ""
         str=word[1, word.length-2]
@@ -133,9 +113,11 @@ class Grammar
         if word[0]=='<'
           #Нетерминал
           right<<@nonterminals[str]
+          #print "#{word}/#{@nonterminals[str]} "
         else
           #Терминал
           right<<@terminals[str]
+          #print "#{word}/#{@terminals[str]} "
         end
         
         #Стираем слово
@@ -144,70 +126,69 @@ class Grammar
 
       #Создаем правило
       rules<<Rule.new(@nonterminals[left], right)
+      #puts ""
 
       i+=1
     end
 
   end
 
-  attr_reader :terminals, :nonterminals, :rules
+  #Ищет правило вывода, сопадающее с вершиной стека
+  def findRule(stack, nextWord)
+    stack2=stack.clone
+    stack2<<nextWord
 
-  #FIRST - множество сииволов грамматики порождаемое symbol
-  def first(symbol)
+    maxLen1, maxRule1, isFull1 = _findRule(stack)
+    maxLen2, maxRule2, isFull2 = _findRule(stack2)
 
-    firstArray=Array(0)
+    puts "1: #{maxLen1}, #{maxRule1}, #{isFull1}"
+    puts "2: #{maxLen2}, #{maxRule2}, #{isFull2}"
 
-    if symbol.wtfIsIt==0
-      #Нетерминал - ищем все сиволы, с которых начинаются правые части правил
-
-      #Просматриваем все правила
-      @rules.each{|rule|
-        if rule.left==symbol
-          #Правило имеет в левой части введенный символ
-
-          firstArray+=first(rule.right[0])
-
-        end
-      }
+    if(maxLen1>maxLen2)
+      return maxRule1, isFull1
     else
-      #Терминал
-      firstArray<<symbol
+      return maxRule2, isFull2
     end
-
-    return firstArray
 
   end
 
-  #Замыкание
-  def closure(items)
-    items.each do |item|
-
-      #Если точка не стоит после последнего элемента
-      if item.position < item.rule.right.length
-
-        #Элемент правила после точки:
-        b=item.rule.left[item.position]
-
-        #Если этот элемент нетерминал
-        if b.wtfIsIt==0
-
-          #Все правила, в левой части которых b
-          @rule.each do |rule|
-
-            #Если очередное правило имеет в правой части b
-            if rule.left.compare(b)
-              #Нам тут нужен FIRST
-            end
-
-          end
-
-        end
-      end
-    end
-  end
+  #Доступ к полям
+  attr_reader :terminals, :nonterminals, :rules
 
   #------------ PRIVATE -----------------------------
   private
 
+  #Ищет правило вывода, сопадающее с вершиной стека
+    # stack - стек терминалов и нетерминалов
+    # result1 - правило
+    # result2 - правило целиком или нет (для принятия решения - перенос или свертка)
+  def _findRule(stack)
+    maxLen=0                  #Длина наиболее совпадающего правила
+    maxRule=nil               #Самое длинное совпадающее правило
+
+    #Проходим по всем правилам
+    @rules.each do |rule|
+
+      len = 0                 #Длина совпадающей части правила
+      i=-1                    #Начинаем с конца
+
+      #Определяем, сколько слов с верщины стека совпадают со словами из правой части
+      #print "#{rule.right[i]} - #{stack[i]}"
+      while (rule.right[i]!=nil) and (stack[i]!=nil) and (rule.right[i].compareType(stack[i]))
+        len+=1
+        i-=1;
+      end
+
+      #Сравниваем с макс. длиной и обновляем её
+      if len>maxLen
+        maxLen=len
+        maxRule=rule
+      end
+    end
+
+    full=false
+    full = (maxRule!=nil) and (maxLen==maxRule.right.length)
+    return maxLen, maxRule, full
+  end
 
 end

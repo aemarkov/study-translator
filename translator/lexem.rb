@@ -26,6 +26,11 @@ class Lexem
     return (other.type==@type) && (other.id==@id)
   end  
 
+  #Сравнивает только тип
+  def compareType(other)
+    return other.type==@type
+  end
+
   #to string
   def to_s
     return "<#{@type}, #{@id}>"

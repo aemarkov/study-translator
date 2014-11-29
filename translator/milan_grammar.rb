@@ -24,10 +24,10 @@ string            16    0
 +                 22    0
 -                 22    1
 *                 23    0
-//                23    1
+/                23    1
 :=                24    0
-"("                 25    0
-")"                 26    0
+(                 25    0
+)                 26    0
 :                 27    0
 .                 28    0
 ,                 29    0
@@ -63,7 +63,7 @@ str_term          117   0
 color_expression  118   0
 ending            119   0
 
-<program>               ::=   <var_defin> <program_body>
+<program>               ::=   <var_define> <program_body>
 <var_define>            ::=   "var" <var_list>,
 <var_list>              ::=   <var_block> <var_list>
 <var_list>              ::=   <var_block>
@@ -73,9 +73,9 @@ ending            119   0
 <type>                  ::=   "integer"
 <type>                  ::=   "string"
 <type>                  ::=   "color"
-<program_body>          ::=   "begin" <operators_list]> "end"
+<program_body>          ::=   "begin" <operators_list> "end"
 <operators_list>        ::=   <operator>
-<operators_list>        ::=   <operator> <operators_list>
+<operators_list>        ::=   <operator> ";" <operators_list>
 <operator>              ::=   "@id" <expression>
 <operator>              ::=   "if" <condition> "then" <operator>
 <operator>              ::=   "if" <condition> "then" <operator> "else" <operator>
