@@ -34,7 +34,7 @@ class Parser
       #Находим подходящее правило свертки
       rule, isFull = @grammar.findRule(stack, text[index+1])
 
-      puts "#{rule}, #{isFull}"
+      #puts "#{rule}, #{isFull}"
 
       # if rule!=nil
       #   #Сворачиваем правило

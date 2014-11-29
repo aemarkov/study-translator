@@ -4,12 +4,15 @@ require_relative 'lexer'
 require_relative 'parser'
 
 
+#Чтение программы из файла
+line = IO.readlines("program.txt")
+program=""
+line.each{|line| program+=line}
 
 grammar = Grammar.new('milan_grammar.rb')
 parser = Parser.new(grammar)
-#puts grammar.rules
+lexer=Lexer.new(program, grammar.terminals)
 
-lexer=Lexer.new("read(a)" , grammar.terminals)
 lexems = lexer.parse
 #puts lexems
 
