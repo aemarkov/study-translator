@@ -11,6 +11,8 @@
 class Rule
 
   #Конструктор
+  #param[in] left - левая часть правила, нетерминал
+  #param[in] right - правая часть правила, масссив нетерминалов и терминалов
   def initialize (left, right) 
     @right=right
     @left=left
@@ -35,7 +37,7 @@ end
 class Grammar
 
   # Конструктор
-  # filename - файл с грамматикой
+  # param[in] - filename - файл с грамматикой
   def initialize(filename)
 
     @terminals=Hash.new
@@ -134,20 +136,32 @@ class Grammar
   end
 
   #Ищет правило вывода, сопадающее с вершиной стека
+    # param[in] stack - стек терминалов и нетерминалов
+    # param[in] nexWord - следующее слово (на 1 впереди перед словом на верхушке стека)
+    # result1 - наиболее подходящее правило, или nil если такового нет
+    # result2 - true, если правило завершено и нужна свертка, false - если нужен перенос
   def findRule(stack, nextWord)
+    #Копия стека
     stack2=stack.clone
     stack2<<nextWord
 
+    puts 'stack1'
+    puts stack
     maxLen1, maxRule1, isFull1 = _findRule(stack)
+    puts ''
+    puts 'stack2'
+    puts stack2
     maxLen2, maxRule2, isFull2 = _findRule(stack2)
 
     puts "1: #{maxLen1}, #{maxRule1}, #{isFull1}"
     puts "2: #{maxLen2}, #{maxRule2}, #{isFull2}"
 
-    if(maxLen1>maxLen2)
+    if maxLen1>maxLen2
       return maxRule1, isFull1
+    elsif maxLen1>0
+      return maxRule2, false
     else
-      return maxRule2, isFull2
+      return nil, false
     end
 
   end
@@ -159,35 +173,44 @@ class Grammar
   private
 
   #Ищет правило вывода, сопадающее с вершиной стека
-    # stack - стек терминалов и нетерминалов
+    # param[in] stack - стек терминалов и нетерминалов
     # result1 - правило
     # result2 - правило целиком или нет (для принятия решения - перенос или свертка)
   def _findRule(stack)
     maxLen=0                  #Длина наиболее совпадающего правила
     maxRule=nil               #Самое длинное совпадающее правило
 
+    #puts stack
+
     #Проходим по всем правилам
     @rules.each do |rule|
 
       len = 0                 #Длина совпадающей части правила
-      i=-1                    #Начинаем с конца
+      i=-1                    #Позиция в  правиле
+      j=-1                    #Позиция в стеке
 
       #Определяем, сколько слов с верщины стека совпадают со словами из правой части
-      #print "#{rule.right[i]} - #{stack[i]}"
-      while (rule.right[i]!=nil) and (stack[i]!=nil) and (rule.right[i].compareType(stack[i]))
-        len+=1
+      while (rule.right[i]!=nil) and (stack[j]!=nil)
+        
+        if rule.right[i].compareType(stack[j])
+          j-=1
+          len+=1
+        else
+          j=-1
+          len=0
+        end
+
         i-=1;
       end
 
       #Сравниваем с макс. длиной и обновляем её
+      #puts "#{rule}, #{len}"
       if len>maxLen
         maxLen=len
         maxRule=rule
       end
     end
-
-    full=false
-    full = (maxRule!=nil) and (maxLen==maxRule.right.length)
+    full = (maxRule!=nil) && (maxRule.right.length == maxLen)
     return maxLen, maxRule, full
   end
 

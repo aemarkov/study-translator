@@ -64,12 +64,12 @@ color_expression  118   0
 ending            119   0
 
 <program>               ::=   <var_define> <program_body>
-<var_define>            ::=   "var" <var_list>,
-<var_list>              ::=   <var_block> <var_list>
-<var_list>              ::=   <var_block>
-<var_block>             ::=   <names_list> <type>
+<var_define>            ::=   "var" <var_list>
+<var_list>              ::=   <var_block> ";" <var_list>
+<var_list>              ::=   <var_block> ";"
+<var_block>             ::=   <names_list> ":" <type>
 <names_list>            ::=   "@id"
-<names_list>            ::=   "@id" <names_list>
+<names_list>            ::=   "@id" "," <names_list>
 <type>                  ::=   "integer"
 <type>                  ::=   "string"
 <type>                  ::=   "color"
@@ -102,7 +102,7 @@ ending            119   0
 <term>                  ::=   <multiplier>
 <term>                  ::=   <multiplier> "*" <term>
 <multiplier>            ::=   "@id"
-<multiplier>            ::=   "(" <num_expression ")"
+<multiplier>            ::=   "(" <num_expression> ")"
 <multiplier>            ::=   "@nconst"
 <str_expression>        ::=   <str_term>
 <str_expression>        ::=   <str_term> "+" <str_expression>

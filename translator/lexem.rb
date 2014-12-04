@@ -7,8 +7,8 @@
 class Lexem
 
   #Конструктор
-    #type - тип лексемы
-    #id - индекс лексемы в таблице
+  # param[in] type - тип лексемы
+  # param[in] id - индекс лексемы в таблице
   def initialize(type, id)
     @type=type
     @id = id
@@ -17,16 +17,22 @@ class Lexem
   attr_reader :type, :id
 
   #Терминал или нетерминал
+  # result - 0 значи терминал
   def wtfIsIt
     return 0
   end
 
   #Сравнение по содержимому
+  # param[in] other - объект, с которым происходит сравнение
+  # result - true, если тип и идентификатор совпадают
   def compare(other)
     return (other.type==@type) && (other.id==@id)
   end  
 
-  #Сравнивает только тип
+  #Сравнивает только тип. Нужно для сравнения при определении подходящих правил, т.к в некоторых
+  #используется один терминал на несколько реальных терминалов (например, < = > <= >=)
+  # param[in] other - объект, с которым происходит сравнение
+  # result - true, если тип  совпадает
   def compareType(other)
     return other.type==@type
   end
@@ -48,10 +54,10 @@ class Terminal < Lexem
   include Comparable
 
   #Конструктор
-    #type - тип лексемы
-    #id - индекс лексемы в таблице
-    #pos - положение в исходном коде
-    #string - строковое представление лексемы
+  # param[in] type - тип лексемы
+  # param[in] id - индекс лексемы в таблице
+  # param[in] pos - положение в исходном коде
+  # param[in] string - строковое представление лексемы
   def initialize(type, id, pos, string)
     @type=type
     @id = id

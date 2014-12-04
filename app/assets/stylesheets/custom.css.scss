@@ -9,11 +9,11 @@ $main-dark:   #0277BD;
 $main-darker: #1A5A80;
 $accent:      #FFC107;
 $accent-dark: #FF6F00;
-$grey:        #DCDCDC;*
+$grey:        #DCDCDC;*/
 
 
 //flat ui green
-$main:        #1abc9c;
+/*$main:        #1abc9c;
 $main-light:  #80CBC4;
 $main-dark:   #16a085;
 $main-darker: #00695C;
@@ -68,6 +68,20 @@ html, body
 }
 
 //================== MENU ==========================
+//Desctop menu style
+#nav_pc
+{
+  display: inline-block;
+}
+
+//Mobile menu style
+#nav_mobile
+{
+  display: none;
+}
+
+
+//----------------- DESCTOP MENU -----------------
 //Menu bar
 .menu
 {
@@ -115,18 +129,7 @@ html, body
 
 }
 
-//Desctop menu style
-#nav_pc
-{
-  display: none;
-}
-
-//Mobile menu style
-#nav_mobile
-{
-  display: inline-block;
-}
-
+//---------- MOBILE MENU ------------------
 //Menu openning button
 .menu-button
 {
@@ -185,12 +188,16 @@ html, body
 //card
 .card
 {
+
+  display: inline-block;
+
   max-width: 1300px;
-  width: 95%;
+  //width: 95%;
+  width: 500px;
 
   min-height: 150px;
 
-  margin: 10px auto;
+  margin: 10px;
 
   border-radius: 2px;
 

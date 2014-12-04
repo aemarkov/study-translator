@@ -2,6 +2,9 @@ require_relative 'lexem'
 
 #
 #Осуществляет синтаксический разбор программы
+#Принимает на вход грамматику и последовательность лексем от лексического анализатора
+#Осуществляет последовательность сверток исходной последовательности до начального нетерминала
+#(Восходящий анализ)
 #
 class Parser
     
@@ -23,6 +26,7 @@ class Parser
     stack=Array.new(0)
 
     #Проходим по всем лексемам из входного потока
+
     text.each_index do |index|
 
       #Добавляем лексему в стек
@@ -31,21 +35,26 @@ class Parser
       puts stack
       puts "----------"
 
-      #Находим подходящее правило свертки
-      rule, isFull = @grammar.findRule(stack, text[index+1])
 
-      puts "#{rule}, #{isFull}"
+      isReduced=false
+      begin
+        isReduced=false
+        #Находим подходящее правило свертки
+        rule, isFull=@grammar.findRule(stack, text[index+1])
+        puts "#{rule}, #{isFull}"
 
-      # if rule!=nil
-      #   #Сворачиваем правило
-      #   #Извлекаем из стека лексемы правой части
-      #   rule.right.length.times{|i| stack.pop}
+        if isFull
+          #Сворачиваем правило
+          #Извлекаем из стека лексемы правой части
+          rule.right.length.times{|i| stack.pop}
 
-      #   #Добавляем в стек левую часть правила
-      #   stack << rule.left
+          #Добавляем в стек левую часть правила
+          stack << rule.left
+          puts "Reduce #{rule}"
 
-      #   puts "Reduce #{rule}"
-      # end
+          isReduced=true
+        end
+     end while isReduced==true
 
     end
 
