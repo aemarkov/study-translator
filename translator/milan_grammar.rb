@@ -63,52 +63,52 @@ str_term          117   0
 color_expression  118   0
 ending            119   0
 
-<program>               ::=   <var_define> <program_body>
-<var_define>            ::=   "var" <var_list>
-<var_list>              ::=   <var_block> ";" <var_list>
-<var_list>              ::=   <var_block> ";"
-<var_block>             ::=   <names_list> ":" <type>
-<names_list>            ::=   "@id"
-<names_list>            ::=   "@id" "," <names_list>
-<type>                  ::=   "integer"
-<type>                  ::=   "string"
-<type>                  ::=   "color"
-<program_body>          ::=   "begin" <operators_list> "end" "."
-<operators_list>        ::=   <operator>
-<operators_list>        ::=   <operator> ";" <operators_list>
-<operator>              ::=   "@id" ":=" <expression>
-<operator>              ::=   "if" <condition> "then" <operator>
-<operator>              ::=   "if" <condition> "then" <operator> "else" <operator>
-<operator>              ::=   "while" <condition> "do" <operator>
-<operator>              ::=   "for" "@id" ":=" <expression> "to" <expression> "do" <operator>
-<operator>              ::=   "write" "(" <num_expression> ")"
-<operator>              ::=   "write" "(" <str_expression> ")"
-<operator>              ::=   "read" "(" "@id" ")"
-<operator>              ::=   "drawpoint" "(" <num_expression> "," <num_expression> "," <color_expression> ")",
-<operator>              ::=   "drawline" "(" <num_expression> "," <num_expression> "," <num_expression> "," <num_expression> "," <color_expression> ")"
-<operator>              ::=   "drawcircle" "(" <num_expression> "," <num_expression> "," <num_expression> "," <color_expression> ")"
-<operator>              ::=   "getpixelcolor" "(" <num_expression> "," <num_expression> ")"
-<operator>              ::=   "clrscr" "(" <color_expression> ")"
-<operator>              ::=   "begin" <operators_list> "end"
-<condition>             ::=   <comparation>
-<condition>             ::=   <comparation> "and" <condition>
-<comparation>           ::=   <num_expression> "=" <num_expression>
-<comparation>           ::=   <str_expression> "=" <str_expression>
-<logic_operator>        ::=   "and"
-<logic_operator>        ::=   "or"
-<expression>            ::=   <num_expression>
-<expression>            ::=   <str_expression>
-<expression>            ::=   <color_expression>
-<num_expression>        ::=   <term>
-<num_expression>        ::=   <term> "+" <num_expression>
-<term>                  ::=   <multiplier>
-<term>                  ::=   <multiplier> "*" <term>
-<multiplier>            ::=   "@id"
-<multiplier>            ::=   "(" <num_expression> ")"
-<multiplier>            ::=   "@nconst"
-<str_expression>        ::=   <str_term>
-<str_expression>        ::=   <str_term> "+" <str_expression>
-<str_term>              ::=   "@id"
-<str_term>              ::=   "@sconst"
-<color_expression>      ::=   "@id"
-<color_expression>      ::=   "getcolorrgb" "(" <num_expression> "," <num_expression> "," <num_expression> ")"
+<program>               ::=   <var_define> <program_body>               0   0
+<var_define>            ::=   "var" <var_list>                          0   2
+<var_list>              ::=   <var_block> ";" <var_list>                0   0
+<var_list>              ::=   <var_block> ";"                           0   0
+<var_block>             ::=   <names_list> ":" <type>                   0   0
+<names_list>            ::=   "@id"                                     1   0
+<names_list>            ::=   "@id" "," <names_list>                    1   0
+<type>                  ::=   "integer"                                 0   0
+<type>                  ::=   "string"                                  0   0
+<type>                  ::=   "color"                                   0   0
+<program_body>          ::=   "begin" <operators_list> "end" "."        0   0
+<operators_list>        ::=   <operator>                                0   0
+<operators_list>        ::=   <operator> ";" <operators_list>           0   0
+<operator>              ::=   "@id" ":=" <expression>                   0   0
+<operator>              ::=   "if" <condition> "then" <operator>        0   0
+<operator>              ::=   "if" <condition> "then" <operator> "else" <operator>                                                                      0   0
+<operator>              ::=   "while" <condition> "do" <operator>                                                                                       0   0
+<operator>              ::=   "for" "@id" ":=" <expression> "to" <expression> "do" <operator>                                                           0   0
+<operator>              ::=   "write" "(" <num_expression> ")"                                                                                          0   0
+<operator>              ::=   "write" "(" <str_expression> ")"                                                                                          0   0
+<operator>              ::=   "read" "(" "@id" ")"                                                                                                      0   0
+<operator>              ::=   "drawpoint" "(" <num_expression> "," <num_expression> "," <color_expression> ")"                                          0   0
+<operator>              ::=   "drawline" "(" <num_expression> "," <num_expression> "," <num_expression> "," <num_expression> "," <color_expression> ")" 0   0
+<operator>              ::=   "drawcircle" "(" <num_expression> "," <num_expression> "," <num_expression> "," <color_expression> ")"                    0   0
+<operator>              ::=   "getpixelcolor" "(" <num_expression> "," <num_expression> ")"                                                             0   0
+<operator>              ::=   "clrscr" "(" <color_expression> ")"                                                                                       0   0
+<operator>              ::=   "begin" <operators_list> "end"            0   0
+<condition>             ::=   <comparation>                             0   0
+<condition>             ::=   <comparation> "and" <condition>           0   0
+<comparation>           ::=   <num_expression> "=" <num_expression>     0   0
+<comparation>           ::=   <str_expression> "=" <str_expression>     0   0
+<logic_operator>        ::=   "and"                             0   0
+<logic_operator>        ::=   "or"                              0   0
+<expression>            ::=   <num_expression>                  0   0
+<expression>            ::=   <str_expression>                  0   0
+<expression>            ::=   <color_expression>                0   0
+<num_expression>        ::=   <term>                            0   0
+<num_expression>        ::=   <term> "+" <num_expression>       0   0
+<term>                  ::=   <multiplier>                      0   0
+<term>                  ::=   <multiplier> "*" <term>           0   0
+<multiplier>            ::=   "@id"                             2   0
+<multiplier>            ::=   "(" <num_expression> ")"          0   0
+<multiplier>            ::=   "@nconst"                         0   0
+<str_expression>        ::=   <str_term>                        0   0
+<str_expression>        ::=   <str_term> "+" <str_expression>   0   0
+<str_term>              ::=   "@id"                             2   0
+<str_term>              ::=   "@sconst"                         0   0
+<color_expression>      ::=   "@id"                             2   0
+<color_expression>      ::=   "getcolorrgb" "(" <num_expression> "," <num_expression> "," <num_expression> ")"  0   0

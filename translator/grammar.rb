@@ -13,17 +13,22 @@ class Rule
   #Конструктор
   #param[in] left - левая часть правила, нетерминал
   #param[in] right - правая часть правила, масссив нетерминалов и терминалов
-  def initialize (left, right) 
+  #param[in] reqMode - в каком режиме может применяться это правило (0 - любой)
+  #param[in] mode - в какой режим происходит переход при успешной свертке правила (0 - перехода нет)
+  def initialize (left, right, reqMode, mode) 
     @right=right
     @left=left
+    @reqMode=reqMode
+    @mode = mode
   end
 
-  attr_reader :right, :left
+  attr_reader :right, :left, :reqMode, :mode
 
   #Преобразование к строке
   def to_s
     str="#{@left} ::= "
     @right.each{|lexem| str+="#{lexem} "}
+    str+="#{@reqMode}-#{@mode}"
     return str
   end
 
@@ -107,8 +112,6 @@ class Grammar
         #Терминал или нетерминал
         word = line[/<.+?>|".+?"/]
 
-        
-
         #он же, но без <> или ""
         str=word[1, word.length-2]
 
@@ -126,8 +129,20 @@ class Grammar
         line[/<.+?>|".+?"/]=""
       end
 
+      #Вырезаем пробелы до режимов
+      line[/\s*/]=''
+
+      #Требуемый режим
+      reqMode = line[/[0-9]+/]
+
+      line[/[0-9]+/]=''
+      line[/\s*/]=''
+
+      #Переход в режим
+      mode=line
+
       #Создаем правило
-      rules<<Rule.new(@nonterminals[left], right)
+      rules<<Rule.new(@nonterminals[left], right, reqMode.to_i, mode.to_i)
       #puts ""
 
       i+=1
@@ -138,18 +153,19 @@ class Grammar
   #Ищет правило вывода, сопадающее с вершиной стека
     # param[in] stack - стек терминалов и нетерминалов
     # param[in] nexWord - следующее слово (на 1 впереди перед словом на верхушке стека)
+    # param[in] mode - текущий режим
     # result1 - наиболее подходящее правило, или nil если такового нет
     # result2 - true, если правило завершено и нужна свертка, false - если нужен перенос
-  def findRule(stack, nextWord)
+  def findRule(stack, nextWord, mode)
     #Копия стека
     stack2=stack.clone
     stack2<<nextWord
 
     puts 'stack1'
     puts stack
-    maxLen1, maxRule1, isFull1 = _findRule(stack, true)
+    maxLen1, maxRule1, isFull1 = _findRule(stack, true, mode)
 
-    maxLen2, maxRule2, isFull2 = _findRule(stack2, false)
+    maxLen2, maxRule2, isFull2 = _findRule(stack2, false, mode)
 
     puts "1: #{maxLen1}, #{maxRule1}, #{isFull1}"
     puts ''
@@ -178,9 +194,10 @@ class Grammar
   #Ищет правило вывода, сопадающее с вершиной стека
     # param[in] stack - стек терминалов и нетерминалов
     # param[in] fullFind - true - искать максимальный процент совпадения, false - максимальную длину совпадения
+    # param[in] mode - текущий режим
     # result1 - правило
     # result2 - правило целиком или нет (для принятия решения - перенос или свертка)
-  def _findRule(stack, fullFind)
+  def _findRule(stack, fullFind, mode)
     maxLen=0                  #Длина наиболее совпадающего правила
     maxRule=nil               #Самое длинное совпадающее правило
 
@@ -212,12 +229,14 @@ class Grammar
       end
 
       #Сравниваем с макс. длиной и обновляем её
-      if len>maxLen
+      isGoodMode = (rule.reqMode==mode) || (rule.reqMode==0)  #Подходящий ли режим
+
+      if isGoodMode && (len>maxLen)
         maxLen=len
         maxRule=rule
       end
 
-      if fullFind && (len==rule.right.length)&& (len>maxFullLen)
+      if fullFind && isGoodMode && (len==rule.right.length)&& (len>maxFullLen)
         maxFullLen=len
         maxFullRule=rule
       end

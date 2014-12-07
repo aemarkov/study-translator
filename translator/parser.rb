@@ -25,6 +25,9 @@ class Parser
     #Инициализируем стек
     stack=Array.new(0)
 
+    #Задаем начальный режим
+    mode = 1
+
     #Проходим по всем лексемам из входного потока
 
     text.each_index do |index|
@@ -40,7 +43,8 @@ class Parser
       begin
         isReduced=false
         #Находим подходящее правило свертки
-        rule, isFull=@grammar.findRule(stack, text[index+1])
+        rule, isFull=@grammar.findRule(stack, text[index+1], mode)
+        puts ""
         puts "#{rule}, #{isFull}"
 
         if isFull
@@ -51,6 +55,13 @@ class Parser
           #Добавляем в стек левую часть правила
           stack << rule.left
           puts "Reduce #{rule}"
+
+          #Меняем режим
+          if rule.mode!=0
+            mode=rule.mode
+            puts "now mode=#{mode}"
+          end
+          puts ""
 
           isReduced=true
         end

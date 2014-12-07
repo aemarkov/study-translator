@@ -10,7 +10,7 @@ parser = Parser.new(grammar)
 
 #puts grammar.rules
 
-lexer=Lexer.new("" , grammar.terminals)
+lexer=Lexer.new("var a:integer; s:string;" , grammar.terminals)
 lexems = lexer.parse
 
 parser.parse(lexems)
