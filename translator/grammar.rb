@@ -147,16 +147,19 @@ class Grammar
 
     puts 'stack1'
     puts stack
-    maxLen1, maxRule1, isFull1 = _findRule(stack)
-    puts ''
-    puts 'stack2'
-    puts stack2
-    maxLen2, maxRule2, isFull2 = _findRule(stack2)
+    maxLen1, maxRule1, isFull1 = _findRule(stack, true)
+
+    maxLen2, maxRule2, isFull2 = _findRule(stack2, false)
 
     puts "1: #{maxLen1}, #{maxRule1}, #{isFull1}"
+    puts ''
+
+    puts 'stack2'
+    puts stack2
     puts "2: #{maxLen2}, #{maxRule2}, #{isFull2}"
 
-    if maxLen1>maxLen2
+
+    if maxLen1>=maxLen2 #|| ((maxLen1>=maxLen2) && (!isFull2))
       return maxRule1, isFull1
     elsif maxLen1>0
       return maxRule2, false
@@ -174,11 +177,15 @@ class Grammar
 
   #Ищет правило вывода, сопадающее с вершиной стека
     # param[in] stack - стек терминалов и нетерминалов
+    # param[in] fullFind - true - искать максимальный процент совпадения, false - максимальную длину совпадения
     # result1 - правило
     # result2 - правило целиком или нет (для принятия решения - перенос или свертка)
-  def _findRule(stack)
+  def _findRule(stack, fullFind)
     maxLen=0                  #Длина наиболее совпадающего правила
     maxRule=nil               #Самое длинное совпадающее правило
+
+    maxFullLen=0
+    maxFullRule=nil
 
     #puts stack
 
@@ -191,7 +198,8 @@ class Grammar
 
       #Определяем, сколько слов с верщины стека совпадают со словами из правой части
       while (rule.right[i]!=nil) and (stack[j]!=nil)
-        
+
+        #Определяем длину совпадающей части
         if rule.right[i].compareType(stack[j])
           j-=1
           len+=1
@@ -204,14 +212,26 @@ class Grammar
       end
 
       #Сравниваем с макс. длиной и обновляем её
-      #puts "#{rule}, #{len}"
       if len>maxLen
         maxLen=len
         maxRule=rule
       end
+
+      if fullFind && (len==rule.right.length)&& (len>maxFullLen)
+        maxFullLen=len
+        maxFullRule=rule
+      end
     end
-    full = (maxRule!=nil) && (maxRule.right.length == maxLen)
-    return maxLen, maxRule, full
+
+    #Определяем, находится ли в стеке правило целиком, либо только часть
+    if !fullFind || (maxFullRule==nil)
+      full=(maxRule!=nil) && (maxRule.right.length == maxLen)
+      return maxLen, maxRule, full
+    else
+      return maxFullLen, maxFullRule, true
+    end
+
+
   end
 
 end

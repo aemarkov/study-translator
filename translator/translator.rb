@@ -7,10 +7,12 @@ require_relative 'parser'
 
 grammar = Grammar.new('milan_grammar.rb')
 parser = Parser.new(grammar)
+
 #puts grammar.rules
 
-lexer=Lexer.new('3+3' , grammar.terminals)
+lexer=Lexer.new("" , grammar.terminals)
 lexems = lexer.parse
-#puts lexems
 
 parser.parse(lexems)
+
+#3<4 and 'a'='b'

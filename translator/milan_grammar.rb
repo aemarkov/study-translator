@@ -11,7 +11,7 @@ read              10    0
 write             11    0
 var               12    0
 and               13    0
-or                14    0
+or                13    1
 integer           15    0
 string            16    0
 ;                 20    0
@@ -24,7 +24,7 @@ string            16    0
 +                 22    0
 -                 22    1
 *                 23    0
-/                23    1
+/                 23    1
 :=                24    0
 (                 25    0
 )                 26    0
@@ -73,15 +73,16 @@ ending            119   0
 <type>                  ::=   "integer"
 <type>                  ::=   "string"
 <type>                  ::=   "color"
-<program_body>          ::=   "begin" <operators_list> "end"
+<program_body>          ::=   "begin" <operators_list> "end" "."
 <operators_list>        ::=   <operator>
 <operators_list>        ::=   <operator> ";" <operators_list>
-<operator>              ::=   "@id" <expression>
+<operator>              ::=   "@id" ":=" <expression>
 <operator>              ::=   "if" <condition> "then" <operator>
 <operator>              ::=   "if" <condition> "then" <operator> "else" <operator>
 <operator>              ::=   "while" <condition> "do" <operator>
 <operator>              ::=   "for" "@id" ":=" <expression> "to" <expression> "do" <operator>
-<operator>              ::=   "write" "(" <expression> ")"
+<operator>              ::=   "write" "(" <num_expression> ")"
+<operator>              ::=   "write" "(" <str_expression> ")"
 <operator>              ::=   "read" "(" "@id" ")"
 <operator>              ::=   "drawpoint" "(" <num_expression> "," <num_expression> "," <color_expression> ")",
 <operator>              ::=   "drawline" "(" <num_expression> "," <num_expression> "," <num_expression> "," <num_expression> "," <color_expression> ")"
@@ -90,8 +91,9 @@ ending            119   0
 <operator>              ::=   "clrscr" "(" <color_expression> ")"
 <operator>              ::=   "begin" <operators_list> "end"
 <condition>             ::=   <comparation>
-<condition>             ::=   <comparation> <logic_operator> <condition>
-<comparation>           ::=   <expression> "=" <expression>
+<condition>             ::=   <comparation> "and" <condition>
+<comparation>           ::=   <num_expression> "=" <num_expression>
+<comparation>           ::=   <str_expression> "=" <str_expression>
 <logic_operator>        ::=   "and"
 <logic_operator>        ::=   "or"
 <expression>            ::=   <num_expression>
