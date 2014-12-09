@@ -13,6 +13,6 @@ parser = Parser.new(grammar)
 lexer=Lexer.new("3=3 and 2=2" , grammar.terminals)
 lexems, variables, numericConsts, stringConsts = lexer.parse
 
-#parser.parse(lexems, variables, numericConsts, stringConsts)
+parser.parse(lexems, variables, numericConsts, stringConsts)
 
 #3<4 and 'a'='b'

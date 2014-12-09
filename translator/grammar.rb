@@ -151,9 +151,12 @@ class Grammar
 
 
     #-------- СЧИТЫВАНИЕ ГРАММАТИКИ С ----------------
+    #Создаем массив, где будует хранится целевая грамматика
     @destGrammar=Array.new
 
     #Читаем файл
+    #Записи в файле отделены строками: пустая строка,"N:" (N-номер правила)
+
     lines=IO.readlines(filenameDest)
     i=-1
     string = ""
@@ -162,23 +165,27 @@ class Grammar
     lines.each_index do |index|
 
       if(regexp.match(lines[index]) != nil) && ((index==0) || (lines[index-1].length==1))
+        #Если это строка с номером правила, перед которой идет пустая строка
+        #Увеличить номер правила (номер правила в файле не используются, чисто для удобства чтения)
         i+=1
         string = ""
+
       elsif (index<lines.length) && !((lines[index].length==1)&&(regexp.match(lines[index+1]))) && (regexp.match(lines[index])==nil)
+        #Если это просто строки файла, а не строка с номером файла
+        #Дописать правило в буферную строку
         string+=lines[index]
+
       else
-        #puts "#{i}"
-        #puts string
+        #Если это пустая строка перед номером правила
+        #Распарсить строку и записать в массив
         @destGrammar<<_separate(string)
       end  
-
     end
 
-    #puts "#{i}"
-    #puts string
+    #Распарсить и записать в массив последнее правило
     @destGrammar<<_separate(string)
 
-    puts @destGrammar
+    #puts @destGrammar
 
   end
 
@@ -218,7 +225,7 @@ class Grammar
   end
 
   #Доступ к полям
-  attr_reader :terminals, :nonterminals, :rules
+  attr_reader :terminals, :nonterminals, :rules, :destGrammar
 
   #------------ PRIVATE -----------------------------
   private
@@ -228,6 +235,7 @@ class Grammar
     str=""              #Строка аккумулятор
     mode=0              #Текущее состояние
     result = Array.new  #Результирующий массив
+    bufer = Array.new
     i=0                 #Текущий индекс строки
 
     regexp = /[0-9]/    #Для проверки на цифру
@@ -236,18 +244,28 @@ class Grammar
 
       #puts string[i]
       #Читается последовательность до вставки
-      if(mode==0) && (string[i]!='@')
+      if(mode==0) && (string[i]!='@') && (string[i]!='|')
         str+=string[i]
+
+      #Последовательность может состоять из несколкьих альтернатив
+      #Разделенных символом |
+      elsif (mode==0) && (string[i]=='|')
+        if(str.length>0)
+          bufer<<str
+          str=""
+        end
 
       #Символ встатвки, сохраняем последовательность, считанную ранее
       #И считываем вставку
       elsif(mode==0)&&(string[i]=='@')
 
         if str.length>0
-          result<<str
+          bufer<<str
+          result<<bufer
         end
 
         mode=1
+        bufer=Array.new
         str=""
 
       #Считываем вставку

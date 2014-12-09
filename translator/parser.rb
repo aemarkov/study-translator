@@ -55,6 +55,7 @@ class Parser
           #Добавляем в стек левую часть правила
           stack << rule.left
           puts "Reduce #{rule}"
+          puts @grammar.destGrammar[0]
 
           #Меняем режим
           if rule.mode!=0
