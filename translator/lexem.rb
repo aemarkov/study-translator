@@ -9,12 +9,15 @@ class Lexem
   #Конструктор
   # param[in] type - тип лексемы
   # param[in] id - индекс лексемы в таблице
-  def initialize(type, id)
+  # Значение (используется при генерации кода)
+  def initialize(type, id, value)
     @type=type
     @id = id
+    @value = value
   end
 
   attr_reader :type, :id
+  attr_accessor :value
 
   #Терминал или нетерминал
   # result - 0 значи терминал

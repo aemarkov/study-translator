@@ -70,7 +70,7 @@ class Lexer
 		#УБРАТЬ ЭТОТ КОСТЫЛЬ!!!
 		@lexems.sort!
 
-		return @lexems
+		return @lexems, @variables, @numericConsts, @stringConsts
 	end
 
 	#---------------------------- PRIVATE ---------------------------------------------------

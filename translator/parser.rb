@@ -20,7 +20,7 @@ class Parser
   end
   
   #Осуществляет синтаксический разбор
-  def parse (text)
+  def parse (text, variables, numericConsts, stringConsts)
     
     #Инициализируем стек
     stack=Array.new(0)
@@ -34,9 +34,9 @@ class Parser
 
       #Добавляем лексему в стек
       stack<<text[index]
-      puts "--stack:--"
-      puts stack
-      puts "----------"
+      #puts "--stack:--"
+      #puts stack
+      #puts "----------"
 
 
       isReduced=false
@@ -44,8 +44,8 @@ class Parser
         isReduced=false
         #Находим подходящее правило свертки
         rule, isFull=@grammar.findRule(stack, text[index+1], mode)
-        puts ""
-        puts "#{rule}, #{isFull}"
+        #puts ""
+        #puts "#{rule}, #{isFull}"
 
         if isFull
           #Сворачиваем правило
@@ -59,9 +59,9 @@ class Parser
           #Меняем режим
           if rule.mode!=0
             mode=rule.mode
-            puts "now mode=#{mode}"
+            #puts "now mode=#{mode}"
           end
-          puts ""
+          #puts ""
 
           isReduced=true
         end

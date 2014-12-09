@@ -91,7 +91,7 @@ ending            119   0
 <operator>              ::=   "clrscr" "(" <color_expression> ")"                                                                                       0   0
 <operator>              ::=   "begin" <operators_list> "end"            0   0
 <condition>             ::=   <comparation>                             0   0
-<condition>             ::=   <comparation> "and" <condition>           0   0
+<condition>             ::=   <condition> <logic_operator> <condition>  0   0
 <comparation>           ::=   <num_expression> "=" <num_expression>     0   0
 <comparation>           ::=   <str_expression> "=" <str_expression>     0   0
 <logic_operator>        ::=   "and"                             0   0

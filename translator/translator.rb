@@ -5,14 +5,14 @@ require_relative 'parser'
 
 
 
-grammar = Grammar.new('milan_grammar.rb')
+grammar = Grammar.new('milan_grammar.rb', 'c_grammar.txt')
 parser = Parser.new(grammar)
 
 #puts grammar.rules
 
-lexer=Lexer.new("var a:integer; s:string;" , grammar.terminals)
-lexems = lexer.parse
+lexer=Lexer.new("3=3 and 2=2" , grammar.terminals)
+lexems, variables, numericConsts, stringConsts = lexer.parse
 
-parser.parse(lexems)
+#parser.parse(lexems, variables, numericConsts, stringConsts)
 
 #3<4 and 'a'='b'

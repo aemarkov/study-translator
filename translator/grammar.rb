@@ -42,15 +42,16 @@ end
 class Grammar
 
   # Конструктор
-  # param[in] - filename - файл с грамматикой
-  def initialize(filename)
+  # param[in] - filenameSource - файл с грамматикой исходного языка
+  # param[in] - filenameDest - файл с грамматикой целевого языка
+  def initialize(filenameSource, filenameDest)
 
     @terminals=Hash.new
     @nonterminals=Hash.new
     @rules=Array.new(0)
 
     #Читаем файл
-    lines=IO.readlines(filename)
+    lines=IO.readlines(filenameSource)
 
     i=0
 
@@ -68,7 +69,7 @@ class Grammar
       id=num.to_i
       
       #Добавляем значения в хэш терминалов
-      @terminals[term]=Lexem.new(type, id)
+      @terminals[term]=Lexem.new(type, id, '')
       i+=1
     end
 
@@ -87,7 +88,7 @@ class Grammar
       id=num.to_i
       
       #Добавляем значения в хэш терминалов
-      @nonterminals[term]=Lexem.new(type, id)
+      @nonterminals[term]=Lexem.new(type, id, '')
       i+=1
     end
 
@@ -148,6 +149,37 @@ class Grammar
       i+=1
     end
 
+
+    #-------- СЧИТЫВАНИЕ ГРАММАТИКИ С ----------------
+    @destGrammar=Array.new
+
+    #Читаем файл
+    lines=IO.readlines(filenameDest)
+    i=-1
+    string = ""
+
+    regexp = /[0-9]:/
+    lines.each_index do |index|
+
+      if(regexp.match(lines[index]) != nil) && ((index==0) || (lines[index-1].length==1))
+        i+=1
+        string = ""
+      elsif (index<lines.length) && !((lines[index].length==1)&&(regexp.match(lines[index+1]))) && (regexp.match(lines[index])==nil)
+        string+=lines[index]
+      else
+        #puts "#{i}"
+        #puts string
+        @destGrammar<<_separate(string)
+      end  
+
+    end
+
+    #puts "#{i}"
+    #puts string
+    @destGrammar<<_separate(string)
+
+    puts @destGrammar
+
   end
 
   #Ищет правило вывода, сопадающее с вершиной стека
@@ -161,18 +193,18 @@ class Grammar
     stack2=stack.clone
     stack2<<nextWord
 
-    puts 'stack1'
-    puts stack
+    #puts 'stack1'
+    #puts stack
     maxLen1, maxRule1, isFull1 = _findRule(stack, true, mode)
 
     maxLen2, maxRule2, isFull2 = _findRule(stack2, false, mode)
 
-    puts "1: #{maxLen1}, #{maxRule1}, #{isFull1}"
-    puts ''
+    #puts "1: #{maxLen1}, #{maxRule1}, #{isFull1}"
+    #puts ''
 
-    puts 'stack2'
-    puts stack2
-    puts "2: #{maxLen2}, #{maxRule2}, #{isFull2}"
+    #puts 'stack2'
+    #puts stack2
+    #puts "2: #{maxLen2}, #{maxRule2}, #{isFull2}"
 
 
     if maxLen1>=maxLen2 #|| ((maxLen1>=maxLen2) && (!isFull2))
@@ -190,6 +222,60 @@ class Grammar
 
   #------------ PRIVATE -----------------------------
   private
+
+  #Разделяет строку правила целевого языка на массив подстрок
+  def _separate(string)
+    str=""              #Строка аккумулятор
+    mode=0              #Текущее состояние
+    result = Array.new  #Результирующий массив
+    i=0                 #Текущий индекс строки
+
+    regexp = /[0-9]/    #Для проверки на цифру
+
+    while i<string.length
+
+      #puts string[i]
+      #Читается последовательность до вставки
+      if(mode==0) && (string[i]!='@')
+        str+=string[i]
+
+      #Символ встатвки, сохраняем последовательность, считанную ранее
+      #И считываем вставку
+      elsif(mode==0)&&(string[i]=='@')
+
+        if str.length>0
+          result<<str
+        end
+
+        mode=1
+        str=""
+
+      #Считываем вставку
+      elsif (mode==1)&&(regexp.match(string[i])!=nil)
+        str+=string[i]
+
+      #Конец вставки
+      elsif(mode==1)&&(regexp.match(string[i])==nil)
+        if str.length>0
+          result<<str
+        end
+
+        mode=0
+        str=""
+      end
+
+      i+=1
+    end
+
+    #Сохранение последней записи, которая пришлась на конец строки
+    #И не вошла в условие @
+    if str.length>0
+      result << str
+    end
+
+    return result
+  end
+
 
   #Ищет правило вывода, сопадающее с вершиной стека
     # param[in] stack - стек терминалов и нетерминалов
