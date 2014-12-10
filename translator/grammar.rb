@@ -35,6 +35,32 @@ class Rule
 end
 
 #----------------------------------------------------
+# Класс TargetRule хранит правило целевого языка
+# Массив текста и номера вставок, которые заменяются на 
+# Значения нетерминалов
+#----------------------------------------------------
+class TargetRule
+
+  #Конструктор
+  #param[in] data - грамматика
+  #param[in] length - число вставок
+  def initialize (data, length)
+    @data=data
+    @length=length
+  end
+
+  def to_s
+    str="length=#{@length}\n"
+    str+=@data.to_s
+    return str
+  end
+
+  attr_reader :data, :length
+
+end
+
+
+#----------------------------------------------------
 # Класс Grammar хранит грамматику языка - список 
 # терминалов, нетерминалов и правил вывода
 # Предоставляет доступ к ним
@@ -200,18 +226,18 @@ class Grammar
     stack2=stack.clone
     stack2<<nextWord
 
-    #puts 'stack1'
-    #puts stack
+    puts 'stack1'
+    puts stack
     maxLen1, maxRule1, isFull1 = _findRule(stack, true, mode)
+
+    puts "1: #{maxLen1}, #{maxRule1}, #{isFull1}"
+    puts ''
 
     maxLen2, maxRule2, isFull2 = _findRule(stack2, false, mode)
 
-    #puts "1: #{maxLen1}, #{maxRule1}, #{isFull1}"
-    #puts ''
-
-    #puts 'stack2'
-    #puts stack2
-    #puts "2: #{maxLen2}, #{maxRule2}, #{isFull2}"
+    puts 'stack2'
+    puts stack2
+    puts "2: #{maxLen2}, #{maxRule2}, #{isFull2}"
 
 
     if maxLen1>=maxLen2 #|| ((maxLen1>=maxLen2) && (!isFull2))
@@ -239,6 +265,7 @@ class Grammar
     i=0                 #Текущий индекс строки
 
     regexp = /[0-9]/    #Для проверки на цифру
+    length = 0          #Число вставок
 
     while i<string.length
 
@@ -275,7 +302,8 @@ class Grammar
       #Конец вставки
       elsif(mode==1)&&(regexp.match(string[i])==nil)
         if str.length>0
-          result<<str
+          result<<str.to_i
+          length+=1
         end
 
         mode=0
@@ -288,10 +316,11 @@ class Grammar
     #Сохранение последней записи, которая пришлась на конец строки
     #И не вошла в условие @
     if str.length>0
-      result << str
+      bufer<<str
+      result << bufer
     end
 
-    return result
+    return TargetRule.new(result, length)
   end
 
 
@@ -311,7 +340,9 @@ class Grammar
     #puts stack
 
     #Проходим по всем правилам
-    @rules.each do |rule|
+    @rules.each_index do |rule_index|
+
+      rule=@rules[rule_index]
 
       len = 0                 #Длина совпадающей части правила
       i=-1                    #Позиция в  правиле
@@ -337,18 +368,25 @@ class Grammar
 
       if isGoodMode && (len>maxLen)
         maxLen=len
-        maxRule=rule
+        maxRule=rule_index
       end
 
       if fullFind && isGoodMode && (len==rule.right.length)&& (len>maxFullLen)
         maxFullLen=len
-        maxFullRule=rule
+        maxFullRule=rule_index
       end
+    end
+
+    #УЛЬТРАКОСТЫЛЬ!!!!!!
+    #puts "maxRule=#{maxRule}, #{stack[-1]}"
+    if !fullFind && (maxRule==5) && (stack[-1].type==30)
+      #puts "AZAZA!!!!!!!!!!!!!!!!!!!"
+      return 3, 2, false
     end
 
     #Определяем, находится ли в стеке правило целиком, либо только часть
     if !fullFind || (maxFullRule==nil)
-      full=(maxRule!=nil) && (maxRule.right.length == maxLen)
+      full=(maxRule!=nil) && (@rules[maxRule].right.length == maxLen)
       return maxLen, maxRule, full
     else
       return maxFullLen, maxFullRule, true

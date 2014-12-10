@@ -16,15 +16,15 @@ integer           15    0
 string            16    0
 ;                 20    0
 =                 21    0
-<>                21    1
-<                 21    2
->                 21    3
-<=                21    4
->=                21    5
+<>                49    0
+<                 50    0
+>                 51    0
+<=                52    0
+>=                53    0
 +                 22    0
--                 22    1
+-                 54    0
 *                 23    0
-/                 23    1
+/                 25    0
 :=                24    0
 (                 25    0
 )                 26    0
@@ -84,16 +84,26 @@ ending            119   0
 <operator>              ::=   "write" "(" <num_expression> ")"                                                                                          0   0
 <operator>              ::=   "write" "(" <str_expression> ")"                                                                                          0   0
 <operator>              ::=   "read" "(" "@id" ")"                                                                                                      0   0
-<operator>              ::=   "drawpoint" "(" <num_expression> "," <num_expression> "," <color_expression> ")"                                          0   0
-<operator>              ::=   "drawline" "(" <num_expression> "," <num_expression> "," <num_expression> "," <num_expression> "," <color_expression> ")" 0   0
-<operator>              ::=   "drawcircle" "(" <num_expression> "," <num_expression> "," <num_expression> "," <color_expression> ")"                    0   0
-<operator>              ::=   "getpixelcolor" "(" <num_expression> "," <num_expression> ")"                                                             0   0
-<operator>              ::=   "clrscr" "(" <color_expression> ")"                                                                                       0   0
+<operator>              ::=   "drawpoint" "(" <expression> "," <expression> "," <expression> ")"                                                        0   0
+<operator>              ::=   "drawline" "(" <expression> "," <expression> "," <expression> "," <expression> "," <expression> ")"                       0   0
+<operator>              ::=   "drawcircle" "(" <expression> "," <expression> "," <expression> "," <expression> ")"                                      0   0
+<operator>              ::=   "getpixelcolor" "(" <expression> "," <expression> ")"                                                                     0   0
+<operator>              ::=   "clrscr" "(" <expression> ")"                                                                                             0   0
 <operator>              ::=   "begin" <operators_list> "end"            0   0
 <condition>             ::=   <comparation>                             0   0
 <condition>             ::=   <condition> <logic_operator> <condition>  0   0
 <comparation>           ::=   <num_expression> "=" <num_expression>     0   0
 <comparation>           ::=   <str_expression> "=" <str_expression>     0   0
+<comparation>           ::=   <num_expression> "<" <num_expression>     0   0
+<comparation>           ::=   <str_expression> "<" <str_expression>     0   0
+<comparation>           ::=   <num_expression> "<=" <num_expression>    0   0
+<comparation>           ::=   <str_expression> "<=" <str_expression>    0   0
+<comparation>           ::=   <num_expression> ">" <num_expression>     0   0
+<comparation>           ::=   <str_expression> ">" <str_expression>     0   0
+<comparation>           ::=   <num_expression> ">=" <num_expression>    0   0
+<comparation>           ::=   <str_expression> ">=" <str_expression>    0   0
+<comparation>           ::=   <num_expression> "<>" <num_expression>    0   0
+<comparation>           ::=   <str_expression> "<>" <str_expression>    0   0
 <logic_operator>        ::=   "and"                             0   0
 <logic_operator>        ::=   "or"                              0   0
 <expression>            ::=   <num_expression>                  0   0
@@ -101,8 +111,10 @@ ending            119   0
 <expression>            ::=   <color_expression>                0   0
 <num_expression>        ::=   <term>                            0   0
 <num_expression>        ::=   <term> "+" <num_expression>       0   0
+<num_expression>        ::=   <term> "-" <num_expression>       0   0
 <term>                  ::=   <multiplier>                      0   0
 <term>                  ::=   <multiplier> "*" <term>           0   0
+<term>                  ::=   <multiplier> "/" <term>           0   0
 <multiplier>            ::=   "@id"                             2   0
 <multiplier>            ::=   "(" <num_expression> ")"          0   0
 <multiplier>            ::=   "@nconst"                         0   0
@@ -111,4 +123,4 @@ ending            119   0
 <str_term>              ::=   "@id"                             2   0
 <str_term>              ::=   "@sconst"                         0   0
 <color_expression>      ::=   "@id"                             2   0
-<color_expression>      ::=   "getcolorrgb" "(" <num_expression> "," <num_expression> "," <num_expression> ")"  0   0
+<color_expression>      ::=   "getcolorrgb" "(" <expression> "," <expression> "," <expression> ")"  0   0

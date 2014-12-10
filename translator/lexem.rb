@@ -20,9 +20,9 @@ class Lexem
   attr_accessor :value
 
   #Терминал или нетерминал
-  # result - 0 значи терминал
+  # result - true значи терминал
   def wtfIsIt
-    return 0
+    return @type<100
   end
 
   #Сравнение по содержимому
@@ -61,19 +61,15 @@ class Terminal < Lexem
   # param[in] id - индекс лексемы в таблице
   # param[in] pos - положение в исходном коде
   # param[in] string - строковое представление лексемы
-  def initialize(type, id, pos, string)
+  def initialize(type, id, pos, value)
     @type=type
     @id = id
     @pos = pos
-    @str=string
+    @value=value
   end
 
+  attr_reader :type, :id, :value
   attr_accessor :pos
-
-  #Терминал или нетерминал
-  def wtfIsIt
-    return 1
-  end
 
   #сравнение позиции
   def <=>(right)
@@ -82,6 +78,6 @@ class Terminal < Lexem
 
   #to string
   def to_s
-    return "('#{@str}', #{@type}, #{@id})"
+    return "('#{@value}', #{@type}, #{@id})"
   end
 end

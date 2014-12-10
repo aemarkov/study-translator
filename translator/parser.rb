@@ -34,38 +34,64 @@ class Parser
 
       #Добавляем лексему в стек
       stack<<text[index]
-      #puts "--stack:--"
-      #puts stack
-      #puts "----------"
+      puts "--stack:--"
+      puts stack
+      puts " "
 
-
-      isReduced=false
       begin
         isReduced=false
         #Находим подходящее правило свертки
-        rule, isFull=@grammar.findRule(stack, text[index+1], mode)
-        #puts ""
-        #puts "#{rule}, #{isFull}"
+        rule_index, isFull=@grammar.findRule(stack, text[index+1], mode)
 
-        if isFull
-          #Сворачиваем правило
-          #Извлекаем из стека лексемы правой части
-          rule.right.length.times{|i| stack.pop}
+        if rule_index!=nil
+          rule = @grammar.rules[rule_index]
+  
+          if isFull
 
-          #Добавляем в стек левую часть правила
-          stack << rule.left
-          puts "Reduce #{rule}"
-          puts @grammar.destGrammar[0]
+            puts "Reduce: #{rule}"
 
-          #Меняем режим
-          if rule.mode!=0
-            mode=rule.mode
-            #puts "now mode=#{mode}"
+            #Создаем строку на целевом языке
+            destRule = @grammar.destGrammar[rule_index]
+            innerValue= ''      #Значение, которое будет сформированно
+            pasteIndex=0        #Индекс вставки
+
+            #puts ""
+            #puts destRule
+
+            destRule.data.each do |word|
+
+              #puts rule
+
+              if word.class==Array
+                #Просто текст
+                innerValue+=word[0]
+              else
+                #Значение предыдущего нетерминала
+                #puts "#{word}, nonterm: #{stack[-rule.right.length+word]}"
+                innerValue+=stack[-rule.right.length+word].value
+              end
+            end
+
+            #puts "..."
+            #puts innerValue
+            #puts "---"
+
+            #Сворачиваем правило
+            #Извлекаем из стека лексемы правой части
+            rule.right.length.times{|i| stack.pop}
+
+            #Добавляем в стек левую часть правила
+            stack << Lexem.new(rule.left.type, rule.left.id, innerValue)
+
+            #Меняем режим
+            if rule.mode!=0
+              mode=rule.mode
+            end
+
+            isReduced=true
+            puts "---"
           end
-          #puts ""
-
-          isReduced=true
-        end
+      end
      end while isReduced==true
 
     end
@@ -73,6 +99,9 @@ class Parser
     puts ""
     puts "fin stack"
     puts stack
+    puts ""
+    puts "prog"
+    puts stack[0].value
 
   end
   

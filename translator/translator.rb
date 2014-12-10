@@ -10,9 +10,10 @@ parser = Parser.new(grammar)
 
 #puts grammar.rules
 
-lexer=Lexer.new("3=3 and 2=2" , grammar.terminals)
+lexer=Lexer.new("var c:color; begin drawpoint(3,3,getcolorrgb(1,1,1)) end." , grammar.terminals)
 lexems, variables, numericConsts, stringConsts = lexer.parse
 
+#puts grammar.destGrammar
 parser.parse(lexems, variables, numericConsts, stringConsts)
 
 #3<4 and 'a'='b'
