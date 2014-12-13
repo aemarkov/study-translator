@@ -226,18 +226,18 @@ class Grammar
     stack2=stack.clone
     stack2<<nextWord
 
-    puts 'stack1'
-    puts stack
+    #puts 'stack1'
+    #puts stack
     maxLen1, maxRule1, isFull1 = _findRule(stack, true, mode)
 
-    puts "1: #{maxLen1}, #{maxRule1}, #{isFull1}"
-    puts ''
+    #puts "1: #{maxLen1}, #{maxRule1}, #{isFull1}"
+    #puts ''
 
     maxLen2, maxRule2, isFull2 = _findRule(stack2, false, mode)
 
-    puts 'stack2'
-    puts stack2
-    puts "2: #{maxLen2}, #{maxRule2}, #{isFull2}"
+    #puts 'stack2'
+    #puts stack2
+    #puts "2: #{maxLen2}, #{maxRule2}, #{isFull2}"
 
 
     if maxLen1>=maxLen2 #|| ((maxLen1>=maxLen2) && (!isFull2))

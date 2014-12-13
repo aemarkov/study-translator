@@ -3,6 +3,6 @@ class TranslatorController < ApplicationController
   end
   
   def translate
-    render "index"
+  	render plain: 'OK'
   end
 end

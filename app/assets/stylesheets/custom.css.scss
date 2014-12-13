@@ -1,7 +1,4 @@
 //=========== GENERAL PARAMETRS ====================
-
-$color_schema:  2;
-
 //Material design blue
 /*$main:        #03A9F4;
 $main-light:  #3498db;
@@ -30,6 +27,8 @@ $main-darker: #004D40;
 $accent:      #e67e22;
 $accent-dark: #e67e22;
 $grey:        #DCDCDC;
+$greyer:      #dadada;
+$dark-grey:   #b3b3b3;
 
 $menu-height: 50px;
 //=====================  GENERAL ===================
@@ -71,13 +70,15 @@ html, body
 //Desctop menu style
 #nav_pc
 {
-  display: inline-block;
+  display: none;
+  //display: inline-block;
 }
 
 //Mobile menu style
 #nav_mobile
 {
-  display: none;
+  display: inline-block;
+  //display: none;
 }
 
 
@@ -127,14 +128,22 @@ html, body
     }
   }
 
+  //Login button - right alignment
+  .login-button
+  {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
 }
 
 //---------- MOBILE MENU ------------------
 //Menu openning button
 .menu-button
 {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
 
   transition:  0.2s linear;
   background-position: 50% 50%;
@@ -142,11 +151,11 @@ html, body
 
   &:hover
   {
-    width: 48px;
-    height: 48px;
-    border-radius: 24px;
-    background-color: $accent;
-    box-shadow: 0 0 15px rgba(0,0,0, 0.7);
+    width: 50px;
+    height: 50px;
+    background-color: $main-light;
+    border-radius: 2px;
+    box-shadow: 0 0 3px rgba(0,0,0, 0.7);
   }
   
 }
@@ -157,7 +166,8 @@ html, body
   position: fixed;
   left:-300px;
 
-  width: 300px;
+  max-width: 300px;
+  width: 90%;
   height: 100%;
 
   background-color: #FFFFFF; //$grey;
@@ -165,6 +175,9 @@ html, body
   z-index: 20;
 
   transition: 0.3s linear;
+
+  color: #000000;
+  font-size: larger;
 }
 
 //dark field
@@ -178,6 +191,33 @@ html, body
   z-index: 18;
 }
 
+//Menu item
+.mobile-menu-item
+{
+  display: block;
+  width: 100%;
+  height: 50px;
+
+  background-color: $grey;
+
+  text-decoration: none;
+
+  padding-top: 20px;
+  text-align: center;
+
+  transition: 0.2s linear;
+
+  &:hover
+  {
+    background-color: $dark-grey;
+  }
+  &:visited
+  {
+    color: #000000;
+  }
+
+}
+
 //===================== CARDS ======================
 //Container for all cards
 .content
@@ -189,15 +229,13 @@ html, body
 .card
 {
 
-  display: inline-block;
+  display: block;
 
   max-width: 1300px;
-  //width: 95%;
-  width: 500px;
-
+  width: 95%;
   min-height: 150px;
 
-  margin: 10px;
+  margin: 10px auto;
 
   border-radius: 2px;
 

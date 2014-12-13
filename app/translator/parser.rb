@@ -34,9 +34,9 @@ class Parser
 
       #Добавляем лексему в стек
       stack<<text[index]
-      puts "--stack:--"
-      puts stack
-      puts " "
+      #puts "--stack:--"
+      #puts stack
+      #puts " "
 
       begin
         isReduced=false
@@ -48,7 +48,7 @@ class Parser
   
           if isFull
 
-            puts "Reduce: #{rule}"
+            #puts "Reduce: #{rule}"
 
             #Создаем строку на целевом языке
             destRule = @grammar.destGrammar[rule_index]
@@ -89,19 +89,18 @@ class Parser
             end
 
             isReduced=true
-            puts "---"
+            #puts "---"
           end
       end
      end while isReduced==true
 
     end
 
-    puts ""
-    puts "fin stack"
-    puts stack
-    puts ""
-    puts "prog"
-    puts stack[0].value
+   if stack.length==1
+      puts stack[0].value
+    else
+      puts "Program contains error(s)."
+    end
 
   end
   

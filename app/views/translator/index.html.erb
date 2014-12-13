@@ -4,133 +4,81 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta charset="utf-8">
 		 <%= stylesheet_link_tag "custom.css" %>
-		 <%= stylesheet_link_tag "index.css "%>
+		 <%= stylesheet_link_tag "translator.css "%>
 		 <%= javascript_include_tag "scripts" %>
 		<title>Транслятор</title>
 	</head>
 	<body>
-		<nav class="nav-panel">
-			<ul>
-				<a href=""><li class="nav-current">Главная</li></a><!--
-				--><a href="translator/index"><li>Транслятор</li></a><!--
-				--><a href=""><li class="last-element">Мой код</li></a>
-				<a href="login/index"><li class="right-item">Вход</li></a>
-			</ul>
-		</nav>
-		<div style="height:50px;">
-		</div>
 		
-		<header id="header">
-			<div id="header-center">
-				<p>
-					<H1>
-						Транслятор
-					</H1>
-					<H3>
-						милан &rarr; си
-					<H3>
-				</p>
-				<p>
-					Простое преобразование кода с языка "Милан" на С
-				</p>
-				<p>
-					<a href="#about" class="btn btn-flat">Узнать больше</a>
-					<a href="translator/index" class="btn btn-flat">Попробовать</a>
-				</p>
-			</div>
-		</header>
-		<div class="line-decor-blue">
+		<div id="nav_mobile_dark">
 		</div>
-		<a id="about" name="about"></a>
-		<br>
-		<div class="container-fluid container-padding">
-			<H3 align="center">
-				Транслятор поможет преобразовать программы с "Милана" на C
-			</H3>
-			<H1 align="center">
-				Легко
-			</H1>
-			<div class="row">
-				<div class="col-sm-6" align="center">
-					<H3>Производительность</H3>
-					<%= image_tag "speed.png" %>
-					<br>
-					<h4>Программы на C производительнее, чем на "Милане"</h4> 
+		<div id="nav_mobile_menu">
+			<text align="center"><H2>Меню</H2>
+			<a href="../../" class="mobile-menu-item">Главная</a>
+			<a href="" class="mobile-menu-item">Транслятор</a>
+			<a href="" class="mobile-menu-item">Мой код</a>
+			<a href="../../login/index" class="mobile-menu-item">Войти</a>
+		</div>
+		<div class="page">
+			<nav class="menu">
+				<div id="nav_mobile">			
+					<a ><div id="btnMenu" class="menu-button"></div></a>
 				</div>
-				<div class="col-sm-6" align="center">
-					<H3>Бла-Бла-бла</H3>
-					<h4>Бла-бла-бла-бла</h4>
+				<div id="nav_pc">
+					<a href="../../" class="menu-item">Главная</a>
+					<a href="/translator/index" class="menu-item">Транслятор</a>
+					<a href="" class="menu-item">Мой код</a>
+					<a href="../../login/index" class="menu-item login-button">Войти</a>
 				</div>
-			</div>
-		</div>
-		<div class="line-decor-white">
-		</div>
-		
-		<div class="container-fluid container-padding container-clouds">
-			<H1 align="center">
-				Без лишних действий
-			</H1>
-			<p align = "center">
-				<%= image_tag "magic.png" %>
-			</p>
-			
-		</div>
-		<div class="line-decor-clouds">
-		</div>
-		
-		<div class="container-fluid container-padding">
-			<H1 align="center">
-				Зарегистрируйтесь сейчас
-			</H1>
-			<table class="price-table">
-				<tr>
-					<td></td>
-					<td></td>
-					<td class="good-caption">Лучший выбор</td>
-				<tr>
-				<tr class="bordered-tr">
-					<td class="no-border"></td>
-					<td class="table-caption">Без регистрации</td>
-					<td class="table-caption">Регистрация</td>
-				</tr>
-				<tr class="bordered-tr">
-					<td class="table-caption">
-						Транслировать код
-					</td>
-					<td><%= image_tag "tick.png" %></td>
-					<td><%= image_tag "tick.png" %></td>
-				</tr>
-				<tr class="bordered-tr">
-					<td class="table-caption">
-						Транслировать файлы
-					</td>
-					<td><%= image_tag "cross.png" %></td>
-					<td><%= image_tag "tick.png" %></td>
-				</tr>
-				<tr class="bordered-tr">
-					<td class="table-caption">
-						Сохранять код
-					</td>
-					<td><%= image_tag "cross.png" %></td>
-					<td><%= image_tag "tick.png" %></td>
-				</tr>
-			</table>
-			<p align="center">
-				<a href="register/index" class="btn btn-flat btn-center">Регистрация</a>
-			</p>
-		</div>
-		
-		
-		
-		<br>
-		<br>
-		
-		<div id="footer" class="navbar-fixed-bottom ">
-      		<div class="container-fluid">
-        		<p class="text-muted"></p>
-      		</div>
-    	</div>
-    	
+			</nav>
+
+			<div style="height:50px">
+	    	</div>
+
+
+			<div class="card  code-editor">
+	    			<span class="card-tittle">
+	    				<span>Код на Милане</span>
+	    			</span>
+	    			<span class="card-content" id="contentSource">
+	    				<textarea id="sourceCode"></textarea>
+	    			</span>
+	    	</div>
+
+			<div class="card  code-editor">
+	    			<span class="card-tittle">
+	    				<span>Код на С++</span>
+	    			</span>
+	    			<span class="card-content" id="contentDestin">
+	    				<textarea id="destinCode"></textarea>
+	    			</span>
+	    	</div>
+
+			<div class="card" id="control-panel">
+	    			<span class="card-tittle">
+	    				<span>Управление</span>
+	    			</span>
+	    			<span class="card-content">
+	    				<div class="control-alignment">
+	    					<a class="button" id="btnSend">T</a>
+	    					<a class="button" id="btnSave">S</a>
+	    					<a class="button" id="btnLoad">L</a>
+	    				</div>
+	    			</span>
+	    	</div>
+
+	    	<div class="wrapper">
+	    	</div>
+
+	    </div>
+
+	    <footer>
+    		<div class="footer-align">
+    			&copy;Anti-apple, inc. 2014
+    		</div>
+    	</footer>
+    		
+
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	    <script src="js/bootstrap.min.js"></script>
 	</body>
