@@ -6,6 +6,7 @@
 		 <%= stylesheet_link_tag "custom.css" %>
 		 <%= stylesheet_link_tag "translator.css "%>
 		 <%= javascript_include_tag "scripts" %>
+		 <%= javascript_include_tag "translator" %>
 		<title>Транслятор</title>
 	</head>
 	<body>
@@ -17,6 +18,7 @@
 			<a href="../../" class="mobile-menu-item">Главная</a>
 			<a href="" class="mobile-menu-item">Транслятор</a>
 			<a href="" class="mobile-menu-item">Мой код</a>
+            <a href="../help/index" class="mobile-menu-item">Справка</a>
 			<a href="../../login/index" class="mobile-menu-item">Войти</a>
 		</div>
 		<div class="page">
@@ -28,6 +30,7 @@
 					<a href="../../" class="menu-item">Главная</a>
 					<a href="/translator/index" class="menu-item">Транслятор</a>
 					<a href="" class="menu-item">Мой код</a>
+                    <a href="../help/index" class="menu-item">Помощь</a>
 					<a href="../../login/index" class="menu-item login-button">Войти</a>
 				</div>
 			</nav>
@@ -38,7 +41,7 @@
 
 			<div class="card  code-editor">
 	    			<span class="card-tittle">
-	    				<span>Код на Милане</span>
+	    				<span>Код на Милане <a href="../help/index">(справка)</a></span>
 	    			</span>
 	    			<span class="card-content" id="contentSource">
 	    				<textarea id="sourceCode"></textarea>
@@ -59,10 +62,10 @@
 	    				<span>Управление</span>
 	    			</span>
 	    			<span class="card-content">
-	    				<div class="control-alignment">
-	    					<a class="button" id="btnSend">T</a>
-	    					<a class="button" id="btnSave">S</a>
-	    					<a class="button" id="btnLoad">L</a>
+	    			    <div class="control-alignment">
+                          <%= image_tag("icon_translate.png", :class => "button", :id => "btnSend") %>
+                          <%= image_tag("icon_open.png", :class => "button button-disable") %>
+                          <%= image_tag("icon_save.png", :class => "button button-disable") %>
 	    				</div>
 	    			</span>
 	    	</div>
@@ -74,7 +77,7 @@
 
 	    <footer>
     		<div class="footer-align">
-    			&copy;Anti-apple, inc. 2014
+              Транслятор "Милан &rarr; C++ &copy; Марков Алексей, 2014
     		</div>
     	</footer>
     		

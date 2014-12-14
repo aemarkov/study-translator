@@ -1,30 +1,33 @@
 //----------------STYLE FOR TRANSLATOR----------------
 @import "custom";
 
+
+//Области для ввода текста и получения результата
 .code-editor
 {
 	display: inline-block;
-	width: 49%;
-	height: 300px;
+	width: 48%;
+	height: 370px;
 	background-color: #FFFFFF;
 }
 
+//Область управления (транслировать, сохранить и проч) снизу
 #control-panel
 {
 	display: inline-block;
-	position: absolute;
-
 	margin: 5px 0 0 0;
 
 	bottom: 50px;
 	left: 0;
-	height: 200px;
+
+	height: 80px;
 	width: 100%;
 	max-width: 100%;
 
 	background-color: #FFFFFF;
 }
 
+//Поле ввода
 textarea
 {
 	display: block;
@@ -33,40 +36,50 @@ textarea
 	margin: 0;
 	padding: 5px;
 	resize: none;
+	font-family: 'Courier New', Courier, monospace;
 }
 
+
+//Кнопка
 .button
 {
 	display: inline-block;
 	background-color: $main;
 
 	border-radius: 80px;
-	width: 20px;
-	height: 20px;
+	width: 80px;
+	height: 80px;
 
-	font-size: larger;
-	color: #FFFFFF;
+	transition: 0.1s linear;
 
-	padding: 30px;
-
-	transition: 0.2s linear;
+    box-shadow: 0 0 6px rgba(0,0,0, 0.7);
+    cursor: pointer;
 
 	&:hover
 	{
-		box-shadow: 0 0 20px rgba(0,0,0,0.7);
+		box-shadow: 0 0 10px rgba(0,0,0,1);
 	}
 
 	&:active
 	{
-		box-shadow: none;
 		background-color: $main-dark;
 	}
 }
 
 .control-alignment
 {
-	width: 250px;
-	height: 80px;
-	margin: 0 auto;
-	border: 1px solid;
+  display: block;
+  width: 250px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+.button-disable
+{
+  background-color: #afcfb5;
+  
+  &:active
+  {
+    background: #819287;
+  }
 }

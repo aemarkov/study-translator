@@ -6,7 +6,7 @@
 		 <%= stylesheet_link_tag "custom.css" %>
 		 <%= stylesheet_link_tag "index.css "%>
 		 <%= javascript_include_tag "scripts" %>
-		<title>Транслятор</title>
+		<title>Транслятор - главная</title>
 	</head>
 	<body>
 		<div id="nav_mobile_dark">
@@ -16,6 +16,7 @@
 			<a href="" class="mobile-menu-item">Главная</a>
 			<a href="/translator/index" class="mobile-menu-item">Транслятор</a>
 			<a href="" class="mobile-menu-item">Мой код</a>
+            <a href="/help/index" class="mobile-menu-item">Справка</a>
 			<a href="login/index" class="mobile-menu-item">Войти</a>
 		</div>
 		<div class="page">
@@ -27,13 +28,14 @@
 					<a href="" class="menu-item">Главная</a>
 					<a href="/translator/index" class="menu-item">Транслятор</a>
 					<a href="" class="menu-item">Мой код</a>
+                    <a href="/help/index" class="menu-item">Помощь</a>
 					<a href="login/index" class="menu-item login-button">Войти</a>
 				</div>
 			</nav>
 	    	
 	    	<div class="header">
 	    		<H1>Транслятор</H1>
-	    		<H3>Милан &rarr; C</H3>
+	    		<H3>Милан &rarr; C++</H3>
 	    	</div>
 
 	    	<div class="content">
@@ -42,7 +44,12 @@
 	    				<span>О трансляторе</span>
 	    			</span>
 	    			<span class="card-content">
-	    				Транслятор позволяет переводить программы с языка Милан на С\С++ не прилагая никаких усилий. Бла-бла-бла текст.
+	    				Транслятор позволяет переводить программы с языка Милан на С++ не прилагая никаких усилий.
+                        <br>
+                        <br>
+                        <text style="color:#e67e22">Милан</text> &mdash; странный урезанный недопаскаль, о котором не знает даже Google. Получить подробную информацию о котором можно в разделе <a href="/help/index">помощи</a>.
+                        <br>
+                        При помощи этого Транслятора Милан &rarr; C++&copy;&#153;&#174; вы можете автоматически переводить программы с Милана на С++ абсолютно без усилий, получая все преимущества С++.
 	    			</span>
 	    		</div>
 	    		<div class="card">
@@ -50,7 +57,9 @@
 	    				<span>Легко</span>
 	    			</span>
 	    			<span class="card-content">
-	    				Всего лишь загрузите свой код
+                        Всего лишь скопируйте или загрузите свой код на сайт, и мгновенно получите его перевод на С++ нажатием одной
+                        кнопки. Не нужно прилагать никаких усилий, все максимально просто и быстрою.
+                        <%= image_tag('translate.png', :class => 'translator-image') %>
 	    			</span>
 	    		</div>
 	    		<div class="card">
@@ -58,7 +67,29 @@
 	    				<span>Получите преимущества C</span>
 	    			</span>
 	    			<span class="card-content">
-	    				Бла-бла
+                      <table>
+                        <tr>
+                          <td  style="width: 50%">
+	    				    <%= image_tag('speed.png', :class => 'small-image') %>
+                          </td>
+                          <td  style="width: 50%">
+                            <%= image_tag('true.png', :class => 'small-image') %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td  style="vertical-align: top;">
+                            <text style="color:#e67e22">Производительность</text>
+                            <br>
+                            Программы, написанные на С++ производительнее, чем написанные на Миланe.
+                          </td>
+                          <td  style="vertical-align: top;">
+                            <text style="color:#e67e22">Кошерность</text>
+                            <br>
+                            Писать на Милане некошерно, потому что это недопасквиль. Переведите свои программы на С++ при помощи Транслятора Милан &rarr; C++&copy;&#153;&#174; и получите +30 к карме<sup>*</su>
+                            С++ &mdash; труЪ.
+                          </td>
+                        </tr>
+                      </table>
 	    			</span>
 	    		</div>
 	    		<div class="card">
@@ -66,25 +97,60 @@
 	    				<span>Зарегестрируйтесь сейчас</span>
 	    			</span>
 	    			<span class="card-content">
-	    				Бла-бла
+	    			    Зарегестрируйтесь сейчас, чтобы получить дополниельные преимущества:
+                        <table class="price-table">
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="good-caption">Лучший выбор</td>
+                            <td></td>
+                          </tr>
+                          <tr class="bordered-tr">
+                            <td class="no-border"></td>
+                            <td class="table-caption">Без регистрации</td>
+                            <td class="table-caption" >Регистрация</td>
+                            <td class="table-caption">Донат<sup>**</sup></td>
+                          </tr>
+                          <tr class="bordered-tr">
+                            <td class="table-caption">Трансляция с милана на С++</td>
+                            <td><%= image_tag 'tick.png' %></td>
+                            <td><%= image_tag 'tick.png' %></td>
+                            <td><%= image_tag 'tick.png' %></td>
+                          </tr>
+                          <tr class="bordered-tr">
+                            <td class="table-caption">Сохранение кода</td>
+                            <td><%= image_tag 'cross.png' %></td>
+                            <td><%= image_tag 'tick.png' %></td>
+                            <td><%= image_tag 'tick.png' %></td>
+                          </tr>
+                          <tr class="bordered-tr">
+                            <td class="table-caption">Трансляция файлов</td>
+                            <td><%= image_tag 'cross.png' %></td>
+                            <td><%= image_tag 'tick.png' %></td>
+                            <td><%= image_tag 'tick.png' %></td>
+                          </tr>
+                          <tr class="bordered-tr">
+                            <td class="table-caption">Милость богов<sup>***</sup></td>
+                            <td><%= image_tag 'cross.png' %></td>
+                            <td><%= image_tag 'cross.png' %></td>
+                            <td><%= image_tag 'tick.png' %></td>
+                          </tr>
+                        </table>
+
 	    			</span>
 	    		</div>
-	    		<div class="card">
+                <div class="card">
 	    			<span class="card-tittle">
-	    				<span>Зарегестрируйтесь сейчас</span>
+	    				<span>Примечания</span>
 	    			</span>
 	    			<span class="card-content">
-	    				Бла-бла
+                        <sup>*</sup> &mdash; писать на милане не лучшая идея. Почему вы вообще делаете это?
+                        <br>
+                        <sup>**</sup> &mdash; Донат &mdash; over $9000 в минуту
+                        <br>
+                        <sup>***</sup> &mdash; Милость богов распространяется на все, кроме Грецова М.В.
 	    			</span>
-	    		</div>
-	    		<div class="card">
-	    			<span class="card-tittle">
-	    				<span>Зарегестрируйтесь сейчас</span>
-	    			</span>
-	    			<span class="card-content">
-	    				Бла-бла
-	    			</span>
-	    		</div>
+                </div>
 	    	</div>
 
 	    	<div class="wrapper">
@@ -93,7 +159,7 @@
 
     	<footer>
     		<div class="footer-align">
-    			&copy;Anti-apple, inc. 2014
+    			Транслятор "Милан &rarr; C++ &copy; Марков Алексей, 2014
     		</div>
     	</footer>
 

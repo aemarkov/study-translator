@@ -1,11 +1,10 @@
-var pageInitialized=false;
+//var pageInitialized=false;
+
 $(document).ready(function() {
-	
-	resize();
 
 	//twice document.ready call fix
-	if(pageInitialized) return;
-    pageInitialized = true;
+	//if(pageInitialized) return;
+    //pageInitialized = true;
 
 	//Menu hiding
 	$(window).scroll(function(){
@@ -56,38 +55,4 @@ $(document).ready(function() {
 			$('#nav_mobile_menu').css({'left':'-300px'});
 		});
 	});
-	
-	//Send code to server button event
-	$('#btnSend').click(function() {
-		var textBox=$('#textCode');
-		var text=textBox.val();
-		$.get("translate", {sourcecode: text}, onAjaxSuccess);
-	});
-	
-	//Code editors resize
-	$(window).resize(function(){
-		resize();
-	});
-
-
-	function resize()
-	{
-		var width=$(window).width()/2-3;
-		var height=$(window).height()-50-200-50-15;
-		$('.code-editor').css({'width':width+'px'});
-		$('.code-editor').css({'height':height+'px'});
-
-		width=width-25;
-		height=height-70;
-		$('#sourceCode').css({'width':width+'px'});
-		$('#destinCode').css({'width':width+'px'});
-		$('#sourceCode').css({'height':height+'px'});
-		$('#destinCode').css({'height':height+'px'});
-	}
-
-	//Receiving code from server
-	function onAjaxSuccess(data)
-	{
-		$('#destinCode').val(data);
-	}
 });

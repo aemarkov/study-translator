@@ -96,10 +96,10 @@ class Parser
 
     end
 
-   if stack.length==1
-      puts stack[0].value
+    if stack.length==1
+      return stack[0].value
     else
-      puts "Program contains error(s)."
+      return "Program contains error(s)."
     end
 
   end

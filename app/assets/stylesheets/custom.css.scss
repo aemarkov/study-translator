@@ -27,7 +27,6 @@ $main-darker: #004D40;
 $accent:      #e67e22;
 $accent-dark: #e67e22;
 $grey:        #DCDCDC;
-$greyer:      #dadada;
 $dark-grey:   #b3b3b3;
 
 $menu-height: 50px;
@@ -62,8 +61,19 @@ html, body
   font-family: Roboto;
   font-weight: 300;
   background-color: $grey;
+}
 
-
+a
+{
+  color: #1173a6;
+  &:visited
+  {
+    color: #699db8;
+  }
+  &:hover
+  {
+    color: #19a6f0;
+  }
 }
 
 //================== MENU ==========================
@@ -266,7 +276,7 @@ html, body
 
   .card-content
   {
-    display: inline-block;
+    display: block;
     padding: 7px;
   }
 }

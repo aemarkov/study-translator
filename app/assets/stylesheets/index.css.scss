@@ -18,3 +18,59 @@
 
   line-height: 1pt;
 }
+
+.translator-image
+{
+  display: block;
+  max-width: 600px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.small-image
+{
+  width: 50%;
+}
+
+//======================================================
+//           Table for comparing versions
+//======================================================
+
+//Highlighted cells
+.table-caption
+{
+  color: $grey;
+  background-color: $main-dark;
+  font-size: 1.5em;
+  padding: 10px;
+  text-align: center;
+}
+
+//Table
+.price-table
+{
+  width: 700px;
+  font-size: 1em;
+  margin: 10px auto;
+  box-shadow: 0 2px 0 0 $main-dark;
+
+  tr:nth-child(2n)
+  {
+    background-color: #e9f4f8;
+
+  }
+
+  td
+  {
+    text-align: center;
+  }
+
+  //Highlighted caption
+  .good-caption
+  {
+    @extend .table-caption;
+    background-color: $accent;
+    border-radius: 10px 10px 0 0;
+  }
+
+}

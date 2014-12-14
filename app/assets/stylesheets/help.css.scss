@@ -1,0 +1,10 @@
+@import "custom";
+
+.code-listing
+{
+  font-family: 'Courier New', Courier, monospace;
+  margin-left: 30px;
+  padding-left: 10px;
+  background-image: image-url("separator.png");
+  background-repeat: repeat-y;
+}

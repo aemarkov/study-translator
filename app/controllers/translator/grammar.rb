@@ -76,7 +76,6 @@ class Grammar
     @nonterminals=Hash.new
     @rules=Array.new(0)
 
-    #Читаем файл
     lines=IO.readlines(filenameSource)
 
     i=0
@@ -204,12 +203,12 @@ class Grammar
       else
         #Если это пустая строка перед номером правила
         #Распарсить строку и записать в массив
-        @destGrammar<<_separate(string)
+        @destGrammar<<_separate(string.chop)
       end  
     end
 
     #Распарсить и записать в массив последнее правило
-    @destGrammar<<_separate(string)
+    @destGrammar<<_separate(string.chop)
 
     #puts @destGrammar
 
@@ -307,7 +306,7 @@ class Grammar
         end
 
         mode=0
-        str=""
+        str=string[i]
       end
 
       i+=1
@@ -316,8 +315,12 @@ class Grammar
     #Сохранение последней записи, которая пришлась на конец строки
     #И не вошла в условие @
     if str.length>0
-      bufer<<str
-      result << bufer
+      if mode==0
+        bufer<<str
+        result << bufer
+      else
+        result<<str.to_i
+      end
     end
 
     return TargetRule.new(result, length)

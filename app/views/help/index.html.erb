@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <%= stylesheet_link_tag "custom.css" %>
+  <%= stylesheet_link_tag "help.css "%>
+  <%= javascript_include_tag "scripts" %>
+  <title>Транслятор</title>
+</head>
+<body>
+
+<div id="nav_mobile_dark">
+</div>
+<div id="nav_mobile_menu">
+  <text align="center"><H2>Меню</H2>
+    <a href="../../" class="mobile-menu-item">Главная</a>
+    <a href="" class="mobile-menu-item">Транслятор</a>
+    <a href="" class="mobile-menu-item">Мой код</a>
+    <a href="" class="mobile-menu-item">Справка</a>
+    <a href="../../login/index" class="mobile-menu-item">Войти</a>
+</div>
+<div class="page">
+  <nav class="menu">
+    <div id="nav_mobile">
+      <a ><div id="btnMenu" class="menu-button"></div></a>
+    </div>
+    <div id="nav_pc">
+      <a href="../../" class="menu-item">Главная</a>
+      <a href="/translator/index" class="menu-item">Транслятор</a>
+      <a href="" class="menu-item">Мой код</a>
+      <a href="" class="menu-item">Помошь</a>
+      <a href="../../login/index" class="menu-item login-button">Войти</a>
+    </div>
+  </nav>
+
+  <div style="height:50px">
+  </div>
+
+  <div class="card">
+    <span class="card-tittle">
+	    <span>Что такое милан</span>
+	</span>
+	<span class="card-content">
+        <text style="color:#e67e22">Милан</text> &mdash; учебный язык программирования, являющейся урезанной версией языка Паскаль.
+        <br>
+        В Милане отсутсвуют:
+        <ul>
+          <li>Массивы</li>
+          <li>Процедуры и функции</li>
+          <li>Все стандартные функции</li>
+          <li>Форматированный вывод</li>
+        </ul>
+    </span>
+  </div>
+
+  <div class="card">
+    <span class="card-tittle">
+	    <span>Структура программы на милане</span>
+	</span>
+	<span class="card-content">
+        Общий вид программы на милане
+       <div class="code-listing">
+         var <br>
+            &nbsp;&lt;имя переменной&gt; [,&lt;имя переменной&gt;, ...] : &lt;тип переменной&gt;;<br>
+            &nbsp;[&lt;имя переменной&gt; [,&lt;имя переменной&gt;, ...] : &lt;тип переменной&gt;;]<br>
+            &nbsp;[...]<br>
+         begin<br>
+            &nbsp;&lt;операторы&gt;<br>
+         end.
+       </div>
+      Программа на милане должна содержать как минимум одну переменную и как минимум один оператор.
+    </span>
+  </div>
+
+  <div class="card">
+    <span class="card-tittle">
+	    <span>Типы данных милана</span>
+	</span>
+	<span class="card-content">
+      <ul>
+        <li>
+            Integer &mdash; целые числа в диапазоне [-хз; хз]
+        </li>
+        <li>
+            String &mdash; строки
+        </li>
+      </ul>
+      С числами можно производить арифметические операции, операции сравнения.<br>
+      Строки можно склеивать при помощи операции "+" и сравнивать.
+    </span>
+  </div>
+
+  <div class="card">
+    <span class="card-tittle">
+	    <span>Операторы милана</span>
+	</span>
+	<span class="card-content">
+      <ul>
+        <li>
+          read(&lt;переменная&gt;) &mdash; ввод с клавиатуры
+        </li>
+        <li>
+          write(&lt;выражение&gt;) &mdash; вывод на экран
+        </li>
+        <li>
+          &lt;переменная&gt; := &lt;выражение&gt; &mdash; присваивание
+        </li>
+        <li>
+            if &lt;условие&gt; then &lt;оператор&gt; &mdash; условие "если-то"
+        </li>
+        <li>
+          if &lt;условие&gt; then &lt;оператор&gt; else &lt;оператор&gt; &mdash; условие "если-то-иначе"
+        </li>
+        <li>
+          while &lt;условие&gt; do &lt;оператор&gt; &mdash; цикл с предуслвием
+        </li>
+        <li>
+          for &lt;переменная&gt; := &lt;начало&gt; to &lt;конец&gt; do &lt;оператор&gt; &mdash; цикл "for"
+        </li>
+          begin &lt;последовательность операторов&gt; end - составной оператор (операторные скобки)
+      </ul>
+    </span>
+  </div>
+
+  <div class="card">
+    <span class="card-tittle">
+	    <span>Примечание</span>
+	</span>
+	<span class="card-content">
+      Особенностью данной версии языка Милан является то, что знак ";" после последнего оператора перед "end" не ставится. Так же ";" не ставится после операторов в условиях перед else
+      <br>
+      <br>
+      Правильно:
+      <div class="code-listing">
+        var <br>
+        &nbsp;a, b, i: integer;<br>
+        begin<br>
+        &nbsp;read(a);<br>
+        &nbsp;for i:=1 to a do begin<br>
+        &nbsp;&nbsp;write('i=');<br>
+        &nbsp;&nbsp;write(i)<br>
+        &nbsp;end<br>
+        end.<br>
+      </div>
+      <br>
+      Неправильно:
+      <div class="code-listing">
+        var <br>
+        &nbsp;a, b, i: integer;<br>
+        begin<br>
+        &nbsp;read(a);<br>
+        &nbsp;for i:=1 to a do begin<br>
+        &nbsp;&nbsp;write('i=');<br>
+        &nbsp;&nbsp;write(i);<br>
+        &nbsp;end;<br>
+        end.<br>
+      </div>
+    </span>
+  </div>
+
+  <div class="wrapper">
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-align">
+    Транслятор "Милан &rarr; C++ &copy; Марков Алексей, 2014
+  </div>
+</footer>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
